@@ -10,11 +10,11 @@ import android.content.pm.PackageManager.NameNotFoundException;
 public class PackageManagerUtil {
 	
 	/**
-	 * 获取版本号的信息
+	 * 获取版本号的信息,由于此类引用了Context因此不能设置为静态方法
 	 * @param context
 	 * @return
 	 */
-	public static String getVersion(Context context){
+	public String getVersion(Context context){
 		
 		PackageManager pm = null;
 		

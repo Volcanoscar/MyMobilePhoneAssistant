@@ -15,11 +15,17 @@ public class StaticDatas {
 	// 访问网络的URL出错
 	public static final int URL_ERROR = 10003;
 	
+	// 下载进度的 状态码
+	public static final int DOWNLOAD_PROCESSING = 10004;
+	
 	// URL链接出错
 	public static final int URL_CONNECTION_ERROR = 10004;
 	
 	// JSON转换出错
 	public static final int JSON_CONVERTOR_ERROR = 10005;
+	
+	// 是否下载文件状态码
+	public static final int IS_DOWNLOAD_NEW_VERSION = 10006;
 	
 	// com.cbooy.mmpa.utils.HttpUtil 日志 TAG
 	public static final String HTTPUTIL_LOG_TAG = "HttpUtil";

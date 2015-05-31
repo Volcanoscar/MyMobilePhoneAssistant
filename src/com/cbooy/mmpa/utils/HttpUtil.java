@@ -1,18 +1,24 @@
 package com.cbooy.mmpa.utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.cbooy.mmpa.R;
 
@@ -23,7 +29,74 @@ import com.cbooy.mmpa.R;
  */
 public class HttpUtil {
 	
-	public static void checkUpdateInfos(final Context context,final String oldVersion,final Handler handler,final long start){
+	private Context context;
+	
+	private Handler handler;
+	
+	public HttpUtil(Context context,Handler handler) {
+		this.context = context;
+		this.handler = handler;
+	}
+	
+	/**
+	 * 下载文件到项目的sdcard
+	 * @param downloadUrl
+	 */
+	public void downloadFiles(String downloadUrl){
+		
+		if(Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
+			
+			String fileName = Environment.getExternalStorageDirectory().
+					getAbsolutePath() + "/mmap" + 
+					downloadUrl.substring(downloadUrl.lastIndexOf("/"));
+			
+			Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "解析出来的文件名字为: " + fileName);
+			
+			FinalHttp httpFinal = new FinalHttp();
+			
+			httpFinal.download(downloadUrl, fileName, new AjaxCallBack<File>() {
+
+				@Override
+				public void onFailure(Throwable t, int errorNo, String strMsg) {
+					super.onFailure(t, errorNo, strMsg);
+					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "下载失败");
+					Toast.makeText(context, "下载失败", Toast.LENGTH_SHORT).show();
+				}
+
+				@Override
+				public void onLoading(long count, long current) {
+					super.onLoading(count, current);
+					
+					Message msg = Message.obtain();
+					
+					msg.what = StaticDatas.DOWNLOAD_PROCESSING;
+					
+					msg.obj = current / count ;
+					
+					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "下载 onLoading " + current / count);
+					
+					handler.sendMessage(msg);
+				}
+
+				@Override
+				public void onSuccess(File t) {
+					super.onSuccess(t);
+					
+					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "下载成功");
+				}
+				
+			});
+		}
+	}
+	
+	/**
+	 * 检查升级的方法,由于此类引入了Context因此不能设置成静态方法
+	 * @param context
+	 * @param oldVersion
+	 * @param handler
+	 * @param start
+	 */
+	public void checkUpdateInfos(final String oldVersion,final long start){
 		
 		// 参数检查
 		if(context == null || oldVersion == null){
