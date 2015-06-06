@@ -46,20 +46,20 @@ public class HttpUtil {
 		
 		if(Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
 			
-			String fileName = Environment.getExternalStorageDirectory().
-					getAbsolutePath() + "/mmap" + 
-					downloadUrl.substring(downloadUrl.lastIndexOf("/"));
+			String fileName = Environment.getExternalStorageDirectory().getAbsolutePath() + downloadUrl.substring(downloadUrl.lastIndexOf("/"));
 			
 			Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "解析出来的文件名字为: " + fileName);
 			
 			FinalHttp httpFinal = new FinalHttp();
 			
 			httpFinal.download(downloadUrl, fileName, new AjaxCallBack<File>() {
-
+				
+				Message msg = Message.obtain();
+				
 				@Override
 				public void onFailure(Throwable t, int errorNo, String strMsg) {
 					super.onFailure(t, errorNo, strMsg);
-					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "下载失败");
+					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "下载失败" + t.getMessage());
 					Toast.makeText(context, "下载失败", Toast.LENGTH_SHORT).show();
 				}
 
@@ -67,13 +67,11 @@ public class HttpUtil {
 				public void onLoading(long count, long current) {
 					super.onLoading(count, current);
 					
-					Message msg = Message.obtain();
-					
 					msg.what = StaticDatas.DOWNLOAD_PROCESSING;
 					
-					msg.obj = current / count ;
+					msg.obj = (int) (current * 100 / count) ;
 					
-					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "下载 onLoading " + current / count);
+					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "下载 onLoading " + (int) (current * 100 / count));
 					
 					handler.sendMessage(msg);
 				}
@@ -81,6 +79,12 @@ public class HttpUtil {
 				@Override
 				public void onSuccess(File t) {
 					super.onSuccess(t);
+					
+					msg.what = StaticDatas.DOWNLOAD_SUCCESS;
+					
+					msg.obj = t ;
+					
+					handler.sendMessage(msg);
 					
 					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "下载成功");
 				}

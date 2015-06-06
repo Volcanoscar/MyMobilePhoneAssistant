@@ -1,5 +1,7 @@
 package com.cbooy.mmpa;
 
+import java.io.File;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +17,7 @@ import com.cbooy.mmpa.activity.HomeActivity;
 import com.cbooy.mmpa.model.UpdateVersionInfo;
 import com.cbooy.mmpa.utils.DialogUtil;
 import com.cbooy.mmpa.utils.HttpUtil;
+import com.cbooy.mmpa.utils.InstallerApkUtil;
 import com.cbooy.mmpa.utils.JsonForObjectConverter;
 import com.cbooy.mmpa.utils.PackageManagerUtil;
 import com.cbooy.mmpa.utils.StaticDatas;
@@ -73,10 +76,17 @@ public class BootActivity extends Activity {
 				// 下载进度显示
 				case StaticDatas.DOWNLOAD_PROCESSING :
 					
-					tvDisplayDownloadProcess.setText("当前下载进度为:" + msg.obj);
+					tvDisplayDownloadProcess.setText("当前下载进度为:" + msg.obj + "%");
 					
 					break;
+				
+				// 安装文件
+				case StaticDatas.DOWNLOAD_SUCCESS:
 					
+					// 安装文件
+					new InstallerApkUtil(BootActivity.this,(File)msg.obj).install();;
+					
+					break;
 				default:
 					
 					// 进入主页面
@@ -98,7 +108,6 @@ public class BootActivity extends Activity {
 		// 弹出对话框提示是否更新
 		new DialogUtil().alertUpdateInfos(BootActivity.this, updateVersioInfo.getDesc(),handler);
 	}
-
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
