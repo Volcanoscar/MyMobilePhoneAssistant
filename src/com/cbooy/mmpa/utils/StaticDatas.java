@@ -27,6 +27,9 @@ public class StaticDatas {
 	// 是否下载文件状态码
 	public static final int IS_DOWNLOAD_NEW_VERSION = 10006;
 	
+	// 系统升级对话框被取消
+	public static final int DIALOG_DISMISS = 10007;
+	
 	// 文件下载成功
 	public static final int DOWNLOAD_SUCCESS = 0;
 	

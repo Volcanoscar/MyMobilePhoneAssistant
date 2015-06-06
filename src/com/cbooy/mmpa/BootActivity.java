@@ -1,10 +1,9 @@
 package com.cbooy.mmpa;
 
-import java.io.File;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,7 +16,6 @@ import com.cbooy.mmpa.activity.HomeActivity;
 import com.cbooy.mmpa.model.UpdateVersionInfo;
 import com.cbooy.mmpa.utils.DialogUtil;
 import com.cbooy.mmpa.utils.HttpUtil;
-import com.cbooy.mmpa.utils.InstallerApkUtil;
 import com.cbooy.mmpa.utils.JsonForObjectConverter;
 import com.cbooy.mmpa.utils.PackageManagerUtil;
 import com.cbooy.mmpa.utils.StaticDatas;
@@ -43,6 +41,12 @@ public class BootActivity extends Activity {
 	// 显示下载进度信息
 	private TextView tvDisplayDownloadProcess = null;
 	
+	// 配置文件
+	private SharedPreferences sp;
+	
+	// 默认是否 检查配置
+	private boolean isConfigCheckUpdate;
+	
 	// 不同线程之间通信
 	private Handler handler = new Handler(){
 		
@@ -51,10 +55,10 @@ public class BootActivity extends Activity {
 			
 			switch (msg.what) {
 				
-				// 检查更新
+				// 需要更新
 				case StaticDatas.VERSION_NEED_UPDATE:
 					
-					checkUpdateFiles(msg);
+					checkUpdateFiles((String)msg.obj);
 					
 					break;
 					
@@ -63,8 +67,10 @@ public class BootActivity extends Activity {
 					
 					boolean isUpdate = (boolean) msg.obj;
 					
+					Log.i(StaticDatas.BOOTACTIVITY_LOG_TAG, "是否下载的 判断 " + isUpdate);
+					
 					if(isUpdate){
-						new HttpUtil(BootActivity.this,handler).downloadFiles(updateVersioInfo.getUpdate_url());
+						new HttpUtil(BootActivity.this,handler).downloadFiles(updateVersioInfo.getUpdate_url(),tvDisplayDownloadProcess);
 					}else{
 						
 						// 进入Home 页面
@@ -73,18 +79,11 @@ public class BootActivity extends Activity {
 					
 					break;
 				
-				// 下载进度显示
-				case StaticDatas.DOWNLOAD_PROCESSING :
+				// 升级对话框取消
+				case StaticDatas.DIALOG_DISMISS :
 					
-					tvDisplayDownloadProcess.setText("当前下载进度为:" + msg.obj + "%");
-					
-					break;
-				
-				// 安装文件
-				case StaticDatas.DOWNLOAD_SUCCESS:
-					
-					// 安装文件
-					new InstallerApkUtil(BootActivity.this,(File)msg.obj).install();;
+					// 进入主页面
+					goHomeActivity();
 					
 					break;
 				default:
@@ -98,15 +97,11 @@ public class BootActivity extends Activity {
 	};
 	
 	// 检查更新
-	private void checkUpdateFiles(Message msg) {
-		String res = (String) msg.obj;
-		
+	private void checkUpdateFiles(String res) {
 		updateVersioInfo = JsonForObjectConverter.StringToObject(res,UpdateVersionInfo.class);
 		
-		Log.i(StaticDatas.BOOTACTIVITY_LOG_TAG, "反射对象信息: " + updateVersioInfo);
-		
 		// 弹出对话框提示是否更新
-		new DialogUtil().alertUpdateInfos(BootActivity.this, updateVersioInfo.getDesc(),handler);
+		new DialogUtil(this,handler).alertUpdateInfos(updateVersioInfo.getDesc());
 	}
 	
 	@Override
@@ -147,8 +142,22 @@ public class BootActivity extends Activity {
 		// 设置版本
 		tvShowVersion.setText("版本: " + versionName);
 		
-		// 检查版本信息是否需要更新
-		new HttpUtil(this,handler).checkUpdateInfos(versionName,start);
+		sp = this.getSharedPreferences("update_info", MODE_PRIVATE);
+		
+		isConfigCheckUpdate = sp.getBoolean("is_update", true);
+		
+		if(isConfigCheckUpdate){
+			// 检查版本信息是否需要更新
+			new HttpUtil(this,handler).checkUpdateInfos(versionName,start);
+		}else{
+			
+			handler.postDelayed(new Runnable(){
+				@Override
+				public void run() {
+					// 进入主页
+					goHomeActivity();
+				}}, 2000);
+		}
 	}
 
 	/**

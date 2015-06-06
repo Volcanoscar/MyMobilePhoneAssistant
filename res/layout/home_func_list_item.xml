@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/img_func_list_item"
+        android:layout_width="60dip"
+        android:layout_height="60dip" 
+        android:src="@drawable/netmanager"
+        android:contentDescription="@string/func_list_item_img"/>
+	
+    <com.cbooy.mmpa.activity.views.FocusedTextView 
+        android:id="@+id/tv_func_list_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:text="网络设置"
+        />
+</LinearLayout>

@@ -12,12 +12,15 @@ import net.tsz.afinal.http.AjaxCallBack;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cbooy.mmpa.R;
@@ -42,7 +45,9 @@ public class HttpUtil {
 	 * 下载文件到项目的sdcard
 	 * @param downloadUrl
 	 */
-	public void downloadFiles(String downloadUrl){
+	public void downloadFiles(String downloadUrl,final TextView refreshView){
+		
+		final Activity activity = (Activity) context;
 		
 		if(Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
 			
@@ -54,39 +59,32 @@ public class HttpUtil {
 			
 			httpFinal.download(downloadUrl, fileName, new AjaxCallBack<File>() {
 				
-				Message msg = Message.obtain();
-				
 				@Override
 				public void onFailure(Throwable t, int errorNo, String strMsg) {
 					super.onFailure(t, errorNo, strMsg);
 					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "下载失败" + t.getMessage());
-					Toast.makeText(context, "下载失败", Toast.LENGTH_SHORT).show();
+					Toast.makeText(activity, "下载失败", Toast.LENGTH_SHORT).show();
 				}
 
 				@Override
-				public void onLoading(long count, long current) {
+				public void onLoading(final long count, final long current) {
 					super.onLoading(count, current);
 					
-					msg.what = StaticDatas.DOWNLOAD_PROCESSING;
-					
-					msg.obj = (int) (current * 100 / count) ;
-					
-					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "下载 onLoading " + (int) (current * 100 / count));
-					
-					handler.sendMessage(msg);
+					activity.runOnUiThread(new Runnable(){
+
+						@Override
+						public void run() {
+							refreshView.setVisibility(View.VISIBLE);
+							refreshView.setText("当前下载进度为:" + (current * 100 / count) + "%");
+						}});
 				}
 
 				@Override
 				public void onSuccess(File t) {
 					super.onSuccess(t);
 					
-					msg.what = StaticDatas.DOWNLOAD_SUCCESS;
-					
-					msg.obj = t ;
-					
-					handler.sendMessage(msg);
-					
-					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "下载成功");
+					// 安装
+					new InstallerApkUtil(activity,t).install();
 				}
 				
 			});

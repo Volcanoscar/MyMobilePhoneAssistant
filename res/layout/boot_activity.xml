@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/boot_activity_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" 
+    android:background="@drawable/luncher_bg">
 
     <TextView
         android:id="@+id/tv_show_version"
@@ -23,6 +24,7 @@
 	
     <TextView 
         android:id="@+id/tv_show_download_process"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

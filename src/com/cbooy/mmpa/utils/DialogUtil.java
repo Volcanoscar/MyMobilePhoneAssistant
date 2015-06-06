@@ -4,11 +4,21 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Handler;
 import android.os.Message;
 
 public class DialogUtil {
+	
+	private Context context;
+	
+	private Handler handler;
+	
+	public DialogUtil(Context context,Handler handler) {
+		this.context = context;
+		this.handler = handler;
+	}
 	
 	/**
 	 * 升级的对话框,提示是否需要升级
@@ -16,7 +26,7 @@ public class DialogUtil {
 	 * @param desc
 	 * @param handler
 	 */
-	public void alertUpdateInfos(Context context,String desc,final Handler handler){
+	public void alertUpdateInfos(String desc){
 		
 		AlertDialog.Builder dialogBuilder = new Builder(context);
 		
@@ -49,6 +59,17 @@ public class DialogUtil {
 				dialog.dismiss();
 				
 				msg.obj = false;
+				
+				handler.sendMessage(msg);
+			}});
+		
+		// 添加取消按钮的监听
+		dialogBuilder.setOnCancelListener(new OnCancelListener(){
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				dialog.dismiss();
+				
+				msg.what = StaticDatas.DIALOG_DISMISS;
 				
 				handler.sendMessage(msg);
 			}});
