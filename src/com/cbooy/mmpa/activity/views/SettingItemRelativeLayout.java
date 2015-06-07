@@ -17,8 +17,22 @@ public class SettingItemRelativeLayout extends RelativeLayout {
 	
 	private CheckBox chkboxSelected;
 	
+	private String title;
+	
+	private String clickOn;
+	
+	private String clickOff;
+	
 	public SettingItemRelativeLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		
+		String namespace = "http://schemas.android.com/apk/res/com.cbooy.mmpa";
+		
+		title = attrs.getAttributeValue(namespace ,"title");
+		
+		clickOn = attrs.getAttributeValue(namespace ,"click_on");
+		
+		clickOff = attrs.getAttributeValue(namespace ,"click_off");
 		
 		initView(context);
 	}
@@ -28,25 +42,11 @@ public class SettingItemRelativeLayout extends RelativeLayout {
 		
 		textTitle = (TextView) view.findViewById(R.id.tv_title);
 		
+		textTitle.setText(title);
+		
 		textDesc = (TextView) view.findViewById(R.id.tv_desc);
 		
 		chkboxSelected = (CheckBox) view.findViewById(R.id.cb_status);
-	}
-	
-	/**
-	 * 设置标题
-	 * @param title
-	 */
-	public void setTitle(String title){
-		textTitle.setText(title);
-	}
-	
-	/**
-	 * 设置描述
-	 * @param desc
-	 */
-	public void setDesc(String desc){
-		textDesc.setText(desc);
 	}
 	
 	/**
@@ -55,6 +55,12 @@ public class SettingItemRelativeLayout extends RelativeLayout {
 	 */
 	public void setCheckd(boolean checked){
 		chkboxSelected.setChecked(checked);
+		
+		if(checked){
+			textDesc.setText(clickOn);
+		}else{
+			textDesc.setText(clickOff);
+		}
 	}
 	
 	/**

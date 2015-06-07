@@ -28,14 +28,12 @@ public class SettingActivity extends Activity {
 		
 		settingView = (SettingItemRelativeLayout) this.findViewById(R.id.item_setting);
 		
-		settingView.setTitle("设置是否自动更新");
-		
 		boolean isUpdate = sp.getBoolean("is_update", true);
 		
 		if(isUpdate){
-			setChecked(true,"开启自动更新");
+			settingView.setCheckd(true);
 		}else{
-			setChecked(false,"取消自动更新");
+			settingView.setCheckd(false);
 		}
 		
 		settingView.setOnClickListener(new OnClickListener(){
@@ -46,23 +44,14 @@ public class SettingActivity extends Activity {
 				if(settingView.isChecked()){
 					editor.putBoolean("is_update", false);
 					
-					setChecked(false,"取消自动更新");
+					settingView.setCheckd(false);
 				}else{	// 没有被选中
-					
 					editor.putBoolean("is_update", true);
 					
-					setChecked(true,"开启自动更新");
+					settingView.setCheckd(true);
 				}
 				
 				editor.commit();
 			}});
-	}
-	
-	/**
-	 * 封装设置
-	 */
-	private void setChecked(boolean checked,String desc){
-		settingView.setCheckd(checked);
-		settingView.setDesc(desc);
 	}
 }

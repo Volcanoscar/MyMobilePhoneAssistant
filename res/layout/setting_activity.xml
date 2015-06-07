@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cbooy="http://schemas.android.com/apk/res/com.cbooy.mmpa"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -7,15 +8,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="25sp"
         android:background="#8866ff00"
         android:gravity="center"
-        android:text="设置中心"/>
-	
+        android:text="@string/setting_center"
+        android:textColor="#000000"
+        android:textSize="25sp" />
+
     <com.cbooy.mmpa.activity.views.SettingItemRelativeLayout
         android:id="@+id/item_setting"
-        android:layout_marginTop="5dip"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        cbooy:click_off="取消自动更新"
+        cbooy:click_on="开启自动更新"
+        cbooy:title="设置是否自动更新" />
+
 </LinearLayout>
