@@ -1,8 +1,14 @@
 package com.cbooy.mmpa.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -11,12 +17,40 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.cbooy.mmpa.R;
+import com.cbooy.mmpa.activity.views.AntiTheftDialog;
+import com.cbooy.mmpa.utils.StaticDatas;
 
+@SuppressLint("HandlerLeak")
 public class HomeActivity extends Activity {
 
 	private GridView gvFuncLists;
+	
+	private SharedPreferences sp;
+	
+	private Handler handler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			
+			// 确认
+			if(msg.what == StaticDatas.ANTITHEFT_DIALOG_CONFIRM){
+				boolean isConfirm = (boolean) msg.obj;
+				
+				if(isConfirm){
+					goAntiTheftActivity();
+				}
+			}
+			
+			// 输入
+			if(msg.what == StaticDatas.ANTITHEFT_DIALOG_ENTER){
+				boolean isEnter = (boolean) msg.obj;
+				
+				if(isEnter){
+					goAntiTheftActivity();
+				}
+			}
+		}
+	};
 
 	private String[] names = new String[] { 
 			"手机防盗", "通讯卫士", "软件管理", 
@@ -40,17 +74,46 @@ public class HomeActivity extends Activity {
 
 		gvFuncLists.setAdapter(new MyAdapter());
 		
+		sp = getSharedPreferences("config", MODE_PRIVATE);
+		
 		gvFuncLists.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
 				
+				// 进入 设置中心
 				if(8 == position){
 					Intent intent = new Intent(HomeActivity.this,SettingActivity.class);
 					
 					startActivity(intent);
 				}
+				
+				// 手机防盗
+				if(0 == position){
+					
+					// 取出密码
+					String oldPasswd = sp.getString("passwd", null);
+					
+					Log.i(StaticDatas.HOMEACTIVITY_LOG_TAG, "取出本地设置的密码:" + oldPasswd);
+					
+					// 没有设置,弹出 输入密码并确认
+					if(TextUtils.isEmpty(oldPasswd)){
+						new AntiTheftDialog(HomeActivity.this,handler).confirmDialog();
+					}else{
+						// 已经设置，弹出输入密码
+						new AntiTheftDialog(HomeActivity.this,handler).enterPasswd(oldPasswd);
+					}
+				}
 			}});
+	}
+	
+	/**
+	 * 切换到 防盗页面
+	 */
+	protected void goAntiTheftActivity() {
+		Intent intent = new Intent(this,AntiTheftActivity.class);
+		
+		startActivity(intent);
 	}
 
 	private class MyAdapter extends BaseAdapter {

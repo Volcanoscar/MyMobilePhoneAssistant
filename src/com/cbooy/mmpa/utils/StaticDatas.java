@@ -30,6 +30,12 @@ public class StaticDatas {
 	// 系统升级对话框被取消
 	public static final int DIALOG_DISMISS = 10007;
 	
+	// 防盗输入密码确认 
+	public final static int ANTITHEFT_DIALOG_CONFIRM = 10008;
+	
+	// 防盗输入密码输入
+	public final static int ANTITHEFT_DIALOG_ENTER = 10009;
+	
 	// 文件下载成功
 	public static final int DOWNLOAD_SUCCESS = 0;
 	
@@ -38,4 +44,7 @@ public class StaticDatas {
 	
 	// com.cbooy.mmpa.BootActivity 日志TAG
 	public static final String BOOTACTIVITY_LOG_TAG = "BootActivity";
+	
+	// com.cbooy.mmpa.activity.HomeActivity 日志 TAG
+	public static final String HOMEACTIVITY_LOG_TAG = "HomeActivity";
 }
