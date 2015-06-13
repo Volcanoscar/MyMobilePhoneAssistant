@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cbooy="http://schemas.android.com/apk/res/com.cbooy.mmpa"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -39,34 +40,14 @@
         android:drawableLeft="@android:drawable/star_big_on"
         android:text="远程锁屏" />
 
-    <LinearLayout
+    <!-- 图片流 -->
+    <com.cbooy.mmpa.activity.views.FlowIconView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:orientation="horizontal" >
+        cbooy:show_num="1" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/presence_online" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/presence_invisible" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/presence_invisible" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/presence_invisible" />
-    </LinearLayout>
-	
-     <RelativeLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
@@ -76,8 +57,7 @@
             android:layout_centerInParent="true"
             android:src="@drawable/setup1" />
 
-        <Button
-            style="@style/button_next_style"
-            />
+        <Button style="@style/button_next_style" />
     </RelativeLayout>
+
 </LinearLayout>
