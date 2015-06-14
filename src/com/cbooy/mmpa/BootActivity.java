@@ -142,9 +142,9 @@ public class BootActivity extends Activity {
 		// 设置版本
 		tvShowVersion.setText("版本: " + versionName);
 		
-		sp = this.getSharedPreferences("update_info", MODE_PRIVATE);
+		sp = this.getSharedPreferences(StaticDatas.SP_CONFIG_FILE, MODE_PRIVATE);
 		
-		isConfigCheckUpdate = sp.getBoolean("is_update", true);
+		isConfigCheckUpdate = sp.getBoolean(StaticDatas.CONFIG_IS_UPDATE, true);
 		
 		if(isConfigCheckUpdate){
 			// 检查版本信息是否需要更新

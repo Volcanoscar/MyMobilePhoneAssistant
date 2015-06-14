@@ -23,7 +23,7 @@
         style="@style/antitheft_tv_style"
         android:text="下次重启手机如果发现sim变化\n就会发送报警短信" />
 
-    <com.cbooy.mmpa.activity.views.SettingItemRelativeLayout
+    <com.cbooy.mmpa.activity.views.SettingItemView
         android:id="@+id/is_bind_sim_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

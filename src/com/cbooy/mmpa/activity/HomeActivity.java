@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.cbooy.mmpa.R;
 import com.cbooy.mmpa.activity.views.AntiTheftDialog;
 import com.cbooy.mmpa.utils.StaticDatas;
@@ -70,7 +70,7 @@ public class HomeActivity extends Activity {
 
 		gvFuncLists.setAdapter(new MyAdapter());
 
-		sp = getSharedPreferences("config", MODE_PRIVATE);
+		sp = getSharedPreferences(StaticDatas.SP_CONFIG_FILE, MODE_PRIVATE);
 
 		gvFuncLists.setOnItemClickListener(new OnItemClickListener() {
 
@@ -80,8 +80,7 @@ public class HomeActivity extends Activity {
 
 				// 进入 设置中心
 				if (8 == position) {
-					Intent intent = new Intent(HomeActivity.this,
-							SettingActivity.class);
+					Intent intent = new Intent(HomeActivity.this,SettingActivity.class);
 
 					startActivity(intent);
 				}
@@ -90,19 +89,14 @@ public class HomeActivity extends Activity {
 				if (0 == position) {
 
 					// 取出密码
-					String oldPasswd = sp.getString("passwd", null);
-
-					Log.i(StaticDatas.HOMEACTIVITY_LOG_TAG, "取出本地设置的密码:"
-							+ oldPasswd);
+					String oldPasswd = sp.getString(StaticDatas.CONFIG_PASSWD, null);
 
 					// 没有设置,弹出 输入密码并确认
 					if (TextUtils.isEmpty(oldPasswd)) {
-						new AntiTheftDialog(HomeActivity.this, handler)
-								.confirmDialog();
+						new AntiTheftDialog(HomeActivity.this, handler).confirmDialog();
 					} else {
 						// 已经设置，弹出输入密码
-						new AntiTheftDialog(HomeActivity.this, handler)
-								.enterPasswd(oldPasswd);
+						new AntiTheftDialog(HomeActivity.this, handler).enterPasswd(oldPasswd);
 					}
 				}
 			}
@@ -142,16 +136,13 @@ public class HomeActivity extends Activity {
 				return convertView;
 			}
 
-			View item = View.inflate(HomeActivity.this,
-					R.layout.home_func_list_item, null);
+			View item = View.inflate(HomeActivity.this,R.layout.home_func_list_item, null);
 
-			ImageView imgItem = (ImageView) item
-					.findViewById(R.id.img_func_list_item);
+			ImageView imgItem = (ImageView) item.findViewById(R.id.img_func_list_item);
 
 			imgItem.setImageResource(ids[position]);
 
-			TextView tvItem = (TextView) item
-					.findViewById(R.id.tv_func_list_item);
+			TextView tvItem = (TextView) item.findViewById(R.id.tv_func_list_item);
 
 			tvItem.setText(names[position]);
 

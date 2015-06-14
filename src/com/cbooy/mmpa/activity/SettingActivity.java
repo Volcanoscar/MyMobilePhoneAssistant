@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.cbooy.mmpa.R;
-import com.cbooy.mmpa.activity.views.SettingItemRelativeLayout;
+import com.cbooy.mmpa.activity.views.SettingItemView;
+import com.cbooy.mmpa.utils.StaticDatas;
 
 public class SettingActivity extends Activity {
 
-	private SettingItemRelativeLayout settingView;
+	private SettingItemView settingView;
 	
 	private SharedPreferences sp;
 	
@@ -22,13 +23,13 @@ public class SettingActivity extends Activity {
 		
 		setContentView(R.layout.setting_activity);
 		
-		sp = this.getSharedPreferences("update_info", MODE_PRIVATE);
+		sp = this.getSharedPreferences(StaticDatas.SP_CONFIG_FILE, MODE_PRIVATE);
 		
 		final Editor editor = sp.edit();
 		
-		settingView = (SettingItemRelativeLayout) this.findViewById(R.id.item_setting);
+		settingView = (SettingItemView) this.findViewById(R.id.item_setting);
 		
-		boolean isUpdate = sp.getBoolean("is_update", true);
+		boolean isUpdate = sp.getBoolean(StaticDatas.CONFIG_IS_UPDATE, true);
 		
 		if(isUpdate){
 			settingView.setCheckd(true);
@@ -42,11 +43,11 @@ public class SettingActivity extends Activity {
 			public void onClick(View v) {
 				// 已经被选中
 				if(settingView.isChecked()){
-					editor.putBoolean("is_update", false);
+					editor.putBoolean(StaticDatas.CONFIG_IS_UPDATE, false);
 					
 					settingView.setCheckd(false);
 				}else{	// 没有被选中
-					editor.putBoolean("is_update", true);
+					editor.putBoolean(StaticDatas.CONFIG_IS_UPDATE, true);
 					
 					settingView.setCheckd(true);
 				}

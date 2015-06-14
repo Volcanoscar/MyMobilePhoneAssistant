@@ -51,4 +51,37 @@ public class StaticDatas {
 
 	// com.cbooy.mmpa.activity.antithefts.BaseSetupActivity 日志 TAG
 	public final static String BASESETUPACTIVITY_LOG_TAG = "BaseSetupActivity";
+
+	// com.cbooy.mmpa.receiver.BootCompletedReceiver 日志 TAG
+	public final static String BootCompletedReceiver_LOG_TAG = "BootCompletedReceiver";
+
+	// com.cbooy.mmpa.utils.ContactsHelperUtil 日志 TAG
+	public final static String CONTACTSHELPERUTIL_LOG_TAG = "ContactsHelperUtil";
+	
+	// com.cbooy.mmpa.activity.antithefts.ContactsReaderActivity  日志 TAG
+	public final static String CONTACTSREADERACTIVITY_LOG_TAG = "ContactsReaderActivity";
+	
+	// com.cbooy.mmpa.activity.AntiTheftActivity 日志 TAG
+	public final static String ANTITHEFTACTIVITY_LOG_TAG = "AntiTheftActivity";
+	
+	// com.cbooy.mmpa.receiver.SmsMonitorReceiver 日志 TAG 
+	public final static String SMSMONITORRECEIVER_LOG_TAG = "SmsMonitorReceiver";
+	
+	// 设置安全号码的 标签
+	public final static String CONFIG_SAFE_PHONE = "bind_phone";
+	
+	// 设置 SIM卡 绑定的 序列号
+	public final static String CONFIG_SIM_SERIA_NUM = "sim";
+	
+	// common SharedPreferences config
+	public final static String SP_CONFIG_FILE = "config";
+	
+	// 本地设置的密码
+	public final static String CONFIG_PASSWD = "passwd";
+	
+	// 设置是否自动更新
+	public final static String CONFIG_IS_UPDATE = "is_update";
+	
+	// 设置是否开启保护
+	public final static String CONFIG_IS_PROTECTED = "is_procted";
 }

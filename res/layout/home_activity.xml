@@ -21,7 +21,7 @@
         android:ellipsize="marquee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="这里设置一个滚动信息，新闻类的啥啥的。。。。。。这里设置一个滚动信息，新闻类的啥啥的。。。。。。"/>
+        android:text="这里准备放一些新闻 和 天气 等信息,后面在加上"/>
     
     <GridView 
         android:id="@+id/gv_func_lists"

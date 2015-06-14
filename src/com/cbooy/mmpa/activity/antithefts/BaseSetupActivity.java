@@ -2,6 +2,7 @@ package com.cbooy.mmpa.activity.antithefts;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -22,14 +23,16 @@ public abstract class BaseSetupActivity extends Activity {
 	
 	// 手势识别器
 	private GestureDetector gd = null;
+	
+	protected SharedPreferences sp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		
-		Log.i(StaticDatas.BASESETUPACTIVITY_LOG_TAG, "BaseSetupActivity onCreate...");
-
+		sp = getSharedPreferences(StaticDatas.SP_CONFIG_FILE, MODE_PRIVATE);
+		
 		// 实例化 手势识别器
 		gd = new GestureDetector(this, new SimpleOnGestureListener() {
 			/**
@@ -89,7 +92,7 @@ public abstract class BaseSetupActivity extends Activity {
 		preStep();
 	}
 	
-	private void nextStep(){
+	public void nextStep(){
 		if(nextActivity != null){
 			Intent intent = new Intent(this,nextActivity);
 			
@@ -101,7 +104,7 @@ public abstract class BaseSetupActivity extends Activity {
 		}
 	}
 	
-	private void preStep(){
+	public void preStep(){
 		if(preActivity != null){
 			Intent intent = new Intent(this,preActivity);
 			

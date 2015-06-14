@@ -14,7 +14,7 @@
         android:textColor="#000000"
         android:textSize="25sp" />
 
-    <com.cbooy.mmpa.activity.views.SettingItemRelativeLayout
+    <com.cbooy.mmpa.activity.views.SettingItemView
         android:id="@+id/item_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

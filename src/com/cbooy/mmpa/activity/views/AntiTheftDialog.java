@@ -30,7 +30,7 @@ public class AntiTheftDialog {
 	public AntiTheftDialog(Context context,Handler handler) {
 		this.context = context;
 		this.handler = handler;
-		sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
+		sp = context.getSharedPreferences(StaticDatas.SP_CONFIG_FILE, Context.MODE_PRIVATE);
 		msg = Message.obtain();
 	}
 	
@@ -78,7 +78,7 @@ public class AntiTheftDialog {
 				// 密码设置成功 存储到本地
 				Editor editor = sp.edit();
 				
-				editor.putString("passwd", MD5Utils.md5(passwd2));
+				editor.putString(StaticDatas.CONFIG_PASSWD, MD5Utils.md5(passwd2));
 				
 				editor.commit();
 				
