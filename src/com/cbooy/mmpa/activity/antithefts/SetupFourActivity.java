@@ -1,28 +1,39 @@
 package com.cbooy.mmpa.activity.antithefts;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.view.View;
 
 import com.cbooy.mmpa.R;
+import com.cbooy.mmpa.activity.AntiTheftActivity;
 
-public class SetupFourActivity extends Activity {
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-		setContentView(R.layout.setup_four_activity);
-	}
+public class SetupFourActivity extends BaseSetupActivity {
+	
+	private SharedPreferences sp ;
+	
 	
 	public void next(View v){
-	}
-	
-	public void pre(View v){
-		Intent intent = new Intent(this,SetupThreeActivity.class);
+		
+		Editor editor = sp.edit();
+		
+		editor.putBoolean("is_setup", true);
+		
+		editor.commit();
+		
+		Intent intent = new Intent(this,AntiTheftActivity.class);
 		
 		startActivity(intent);
 		
 		finish();
+	}
+	
+	@Override
+	public void init() {
+		setContentView(R.layout.setup_four_activity);
+		
+		sp = getSharedPreferences("config", MODE_PRIVATE);
+
+		preActivity = SetupThreeActivity.class;
 	}
 }

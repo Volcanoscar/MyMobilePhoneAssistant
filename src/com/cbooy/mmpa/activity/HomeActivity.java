@@ -25,45 +25,41 @@ import com.cbooy.mmpa.utils.StaticDatas;
 public class HomeActivity extends Activity {
 
 	private GridView gvFuncLists;
-	
+
 	private SharedPreferences sp;
-	
-	private Handler handler = new Handler(){
+
+	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			
+
 			// 确认
-			if(msg.what == StaticDatas.ANTITHEFT_DIALOG_CONFIRM){
+			if (msg.what == StaticDatas.ANTITHEFT_DIALOG_CONFIRM) {
 				boolean isConfirm = (boolean) msg.obj;
-				
-				if(isConfirm){
+
+				if (isConfirm) {
 					goAntiTheftActivity();
 				}
 			}
-			
+
 			// 输入
-			if(msg.what == StaticDatas.ANTITHEFT_DIALOG_ENTER){
+			if (msg.what == StaticDatas.ANTITHEFT_DIALOG_ENTER) {
 				boolean isEnter = (boolean) msg.obj;
-				
-				if(isEnter){
+
+				if (isEnter) {
 					goAntiTheftActivity();
 				}
 			}
 		}
 	};
 
-	private String[] names = new String[] { 
-			"手机防盗", "通讯卫士", "软件管理", 
-			"进程管理","流量统计", "手机杀毒", 
-			"缓存清理", "高级工具", "设置中心" 
-			};
-	
-	private int[] ids = new int[]{
-			R.drawable.safe,R.drawable.callmsgsafe,R.drawable.app,
-			R.drawable.taskmanager,R.drawable.netmanager,R.drawable.trojan,
-			R.drawable.sysoptimize,R.drawable.atools,R.drawable.settings
-	};
-	
+	private String[] names = new String[] { "手机防盗", "通讯卫士", "软件管理", "进程管理",
+			"流量统计", "手机杀毒", "缓存清理", "高级工具", "设置中心" };
+
+	private int[] ids = new int[] { R.drawable.safe, R.drawable.callmsgsafe,
+			R.drawable.app, R.drawable.taskmanager, R.drawable.netmanager,
+			R.drawable.trojan, R.drawable.sysoptimize, R.drawable.atools,
+			R.drawable.settings };
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,46 +69,52 @@ public class HomeActivity extends Activity {
 		gvFuncLists = (GridView) this.findViewById(R.id.gv_func_lists);
 
 		gvFuncLists.setAdapter(new MyAdapter());
-		
+
 		sp = getSharedPreferences("config", MODE_PRIVATE);
-		
-		gvFuncLists.setOnItemClickListener(new OnItemClickListener(){
+
+		gvFuncLists.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-				
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+
 				// 进入 设置中心
-				if(8 == position){
-					Intent intent = new Intent(HomeActivity.this,SettingActivity.class);
-					
+				if (8 == position) {
+					Intent intent = new Intent(HomeActivity.this,
+							SettingActivity.class);
+
 					startActivity(intent);
 				}
-				
+
 				// 手机防盗
-				if(0 == position){
-					
+				if (0 == position) {
+
 					// 取出密码
 					String oldPasswd = sp.getString("passwd", null);
-					
-					Log.i(StaticDatas.HOMEACTIVITY_LOG_TAG, "取出本地设置的密码:" + oldPasswd);
-					
+
+					Log.i(StaticDatas.HOMEACTIVITY_LOG_TAG, "取出本地设置的密码:"
+							+ oldPasswd);
+
 					// 没有设置,弹出 输入密码并确认
-					if(TextUtils.isEmpty(oldPasswd)){
-						new AntiTheftDialog(HomeActivity.this,handler).confirmDialog();
-					}else{
+					if (TextUtils.isEmpty(oldPasswd)) {
+						new AntiTheftDialog(HomeActivity.this, handler)
+								.confirmDialog();
+					} else {
 						// 已经设置，弹出输入密码
-						new AntiTheftDialog(HomeActivity.this,handler).enterPasswd(oldPasswd);
+						new AntiTheftDialog(HomeActivity.this, handler)
+								.enterPasswd(oldPasswd);
 					}
 				}
-			}});
+			}
+		});
 	}
-	
+
 	/**
 	 * 切换到 防盗页面
 	 */
 	protected void goAntiTheftActivity() {
-		Intent intent = new Intent(this,AntiTheftActivity.class);
-		
+		Intent intent = new Intent(this, AntiTheftActivity.class);
+
 		startActivity(intent);
 	}
 
@@ -135,21 +137,24 @@ public class HomeActivity extends Activity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			
-			if(convertView != null){
+
+			if (convertView != null) {
 				return convertView;
 			}
-			
-			View item = View.inflate(HomeActivity.this, R.layout.home_func_list_item, null);
-			
-			ImageView imgItem = (ImageView) item.findViewById(R.id.img_func_list_item);
-			
+
+			View item = View.inflate(HomeActivity.this,
+					R.layout.home_func_list_item, null);
+
+			ImageView imgItem = (ImageView) item
+					.findViewById(R.id.img_func_list_item);
+
 			imgItem.setImageResource(ids[position]);
-			
-			TextView tvItem = (TextView) item.findViewById(R.id.tv_func_list_item);
-			
+
+			TextView tvItem = (TextView) item
+					.findViewById(R.id.tv_func_list_item);
+
 			tvItem.setText(names[position]);
-			
+
 			return item;
 		}
 
