@@ -67,6 +67,9 @@ public class StaticDatas {
 	// com.cbooy.mmpa.receiver.SmsMonitorReceiver 日志 TAG 
 	public final static String SMSMONITORRECEIVER_LOG_TAG = "SmsMonitorReceiver";
 	
+	// com.cbooy.mmpa.service.GPSMonitorService 日志 TAG 
+	public final static String GPSMONITORSERVICE_LOG_TAG = "GPSMonitorService";
+	
 	// 设置安全号码的 标签
 	public final static String CONFIG_SAFE_PHONE = "bind_phone";
 	
@@ -84,4 +87,7 @@ public class StaticDatas {
 	
 	// 设置是否开启保护
 	public final static String CONFIG_IS_PROTECTED = "is_procted";
+	
+	// 位置信息
+	public final static String CONFIG_LOCATION_INFO = "local_location";
 }

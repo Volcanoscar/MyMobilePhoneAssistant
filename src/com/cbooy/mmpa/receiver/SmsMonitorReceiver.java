@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.cbooy.mmpa.R;
+import com.cbooy.mmpa.service.GPSMonitorService;
 import com.cbooy.mmpa.utils.StaticDatas;
 
 public class SmsMonitorReceiver extends BroadcastReceiver {
@@ -44,11 +47,29 @@ public class SmsMonitorReceiver extends BroadcastReceiver {
 				// 判断 是否为指定命令
 				String smsBody = smsMessage.getMessageBody();
 				
-				Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "短信体 : " + smsBody);
-				
 				//得到手机的GPS
 				if("#*location*#".equals(smsBody)){
-					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "得到手机的GPS");
+					
+					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "短信体 : " + smsBody);
+					
+					// 开启 获取位置的 服务
+					Intent serviceIntent = new Intent(context,GPSMonitorService.class);
+					
+					context.startService(serviceIntent);
+					
+					String location = sp.getString(StaticDatas.CONFIG_LOCATION_INFO, null);
+					
+					if(!TextUtils.isEmpty(location)){
+						SmsManager.getDefault().sendTextMessage(
+								safeNum, 
+								null, 
+								new StringBuilder().append("获取位置信息 : ").append(location).toString(), 
+								null, 
+								null
+							);
+					}
+					
+					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "得到手机的GPS" + location);
 					
 					abortBroadcast();
 				}
