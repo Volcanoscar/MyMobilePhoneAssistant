@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.cbooy.mmpa.R;
 import com.cbooy.mmpa.service.GPSMonitorService;
+import com.cbooy.mmpa.utils.LockScreenUtil;
 import com.cbooy.mmpa.utils.StaticDatas;
 
 public class SmsMonitorReceiver extends BroadcastReceiver {
@@ -19,8 +20,6 @@ public class SmsMonitorReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		SharedPreferences sp = context.getSharedPreferences(StaticDatas.SP_CONFIG_FILE, Context.MODE_PRIVATE);
-		
-		Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "有短信收到...");
 		
 		// 判断是否开启防盗保护
 		boolean is_protected = sp.getBoolean(StaticDatas.CONFIG_IS_PROTECTED, false);
@@ -40,10 +39,8 @@ public class SmsMonitorReceiver extends BroadcastReceiver {
 			// 发送者
 			String sender = smsMessage.getOriginatingAddress();
 			
-			Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "发送者 : " + sender);
-			
 			// 是 安全号码
-			if(safeNum.equals(sender)){
+			if(safeNum.contains(sender)){
 				// 判断 是否为指定命令
 				String smsBody = smsMessage.getMessageBody();
 				
@@ -102,6 +99,8 @@ public class SmsMonitorReceiver extends BroadcastReceiver {
 				//远程锁屏
 				if("#*lockscreen*#".equals(smsBody)){
 					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "远程锁屏");
+					
+					LockScreenUtil.inst(context).lockScreen();
 					
 					abortBroadcast();
 				}

@@ -47,11 +47,21 @@ public class SetupThreeActivity extends BaseSetupActivity implements OnClickList
 	
 	@Override
 	public void nextStep() {
-		if(TextUtils.isEmpty(bindPhone)){
+		
+		// bug: 从输入框获取号码判断
+		if(TextUtils.isEmpty(sendSmsText.getText())){
 			Toast.makeText(this, "安全号码未绑定", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
+		// 下一步之前保存号码
+		Editor editor = sp.edit();
+		
+		editor.putString(StaticDatas.CONFIG_SAFE_PHONE, new StringBuilder().append(sendSmsText.getText()).toString());
+		
+		editor.commit();
+		
+		// 跳转到下一个页面
 		Intent intent = new Intent(this,SetupFourActivity.class);
 		
 		startActivity(intent);
@@ -70,12 +80,6 @@ public class SetupThreeActivity extends BaseSetupActivity implements OnClickList
 			
 			if(!TextUtils.isEmpty(bindPhone)){
 				sendSmsText.setText(bindPhone);
-				
-				Editor editor = sp.edit();
-				
-				editor.putString(StaticDatas.CONFIG_SAFE_PHONE, new StringBuilder().append("+86").append(bindPhone).toString());
-				
-				editor.commit();
 			}
 		}
 	}
