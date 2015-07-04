@@ -14,7 +14,7 @@ import com.cbooy.mmpa.utils.StaticDatas;
 
 public class SetupTwoActivity extends BaseSetupActivity implements OnClickListener{
 	
-	// Sim¿¨°ó¶¨ÉèÖÃ
+	// Simå¡ç»‘å®šè®¾ç½®
 	private SettingItemView setItem;
 	
 	private String sim;
@@ -31,16 +31,16 @@ public class SetupTwoActivity extends BaseSetupActivity implements OnClickListen
 		
 		tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
 		
-		// »ñÈ¡ ÉèÖÃItem¶ÔÏó
+		// è·å– è®¾ç½®Itemå¯¹è±¡
 		setItem = (SettingItemView) this.findViewById(R.id.is_bind_sim_card);
 		
-		// Ìí¼Ó¼àÌıÆ÷
+		// æ·»åŠ ç›‘å¬å™¨
 		setItem.setOnClickListener(this);
 		
-		// »ñÈ¡ÉèÖÃµÄ sim ¿¨
+		// è·å–è®¾ç½®çš„ sim å¡
 		sim = sp.getString(StaticDatas.CONFIG_SIM_SERIA_NUM, null);
 		
-		// ÅĞ¿ÕÉèÖÃ 
+		// åˆ¤ç©ºè®¾ç½® 
 		if(TextUtils.isEmpty(sim)){
 			setItem.setCheckd(false);
 		}else{
@@ -67,10 +67,10 @@ public class SetupTwoActivity extends BaseSetupActivity implements OnClickListen
 	@Override
 	public void onClick(View v) {
 		
-		// »ñÈ¡µ±Ç°×´Ì¬
+		// è·å–å½“å‰çŠ¶æ€
 		boolean currentStatus = setItem.isChecked();
 		
-		// ÉèÖÃ
+		// è®¾ç½®
 		setItem.setCheckd(! currentStatus);
 		
 		if(! currentStatus){
@@ -84,7 +84,7 @@ public class SetupTwoActivity extends BaseSetupActivity implements OnClickListen
 		String num = tm.getSimSerialNumber();
 		
 		if(TextUtils.isEmpty(num)){
-			Toast.makeText(this, "Ã»ÓĞSIM¿¨", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "æ²¡æœ‰SIMå¡", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		

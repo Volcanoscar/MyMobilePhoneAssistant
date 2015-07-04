@@ -18,7 +18,7 @@ public class InstallerApkUtil {
 	}
 
 	/**
-	 * 安装文件
+	 * 瀹夎鏂囦欢
 	 * 
 	 * @param f
 	 */
@@ -32,7 +32,7 @@ public class InstallerApkUtil {
 	}
 
 	/**
-	 * 卸载文件
+	 * 鍗歌浇鏂囦欢
 	 * 
 	 * @param f
 	 */

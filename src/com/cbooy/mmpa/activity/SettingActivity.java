@@ -41,12 +41,12 @@ public class SettingActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// 已经被选中
+				// 宸茬粡琚�変腑
 				if(settingView.isChecked()){
 					editor.putBoolean(StaticDatas.CONFIG_IS_UPDATE, false);
 					
 					settingView.setCheckd(false);
-				}else{	// 没有被选中
+				}else{	// 娌℃湁琚�変腑
 					editor.putBoolean(StaticDatas.CONFIG_IS_UPDATE, true);
 					
 					settingView.setCheckd(true);

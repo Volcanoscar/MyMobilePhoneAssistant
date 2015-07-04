@@ -28,10 +28,10 @@ public class FlowIconView extends LinearLayout {
 		
 		onLineCount = attrs.getAttributeValue(namespace, "show_num");
 		
-		// ³õÊ¼»¯Êı¾İ
+		// åˆå§‹åŒ–æ•°æ®
 		initData();
 		
-		// ³õÊ¼»¯ ÊÓÍ¼
+		// åˆå§‹åŒ– è§†å›¾
 		init();
 	}
 

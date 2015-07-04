@@ -50,7 +50,7 @@ public class SettingItemView extends RelativeLayout {
 	}
 	
 	/**
-	 * ÉèÖÃÊÇ·ñ±»µã»÷
+	 * è®¾ç½®æ˜¯å¦è¢«ç‚¹å‡»
 	 * @param checked
 	 */
 	public void setCheckd(boolean checked){
@@ -64,7 +64,7 @@ public class SettingItemView extends RelativeLayout {
 	}
 	
 	/**
-	 * »ñÈ¡Õû¸ö¿Ø¼şÊÇ·ñ±»µã»÷
+	 * è·å–æ•´ä¸ªæ§ä»¶æ˜¯å¦è¢«ç‚¹å‡»
 	 * @return
 	 */
 	public boolean isChecked(){

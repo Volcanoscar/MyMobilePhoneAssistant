@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 
 
 /**
- * jsonºÍ×Ö·û´®Ö®¼äµÄÏà»¥×ª»»
+ * jsonå’Œå­—ç¬¦ä¸²ä¹‹é—´çš„ç›¸äº’è½¬æ¢
  * @author chenhao24
  *
  */

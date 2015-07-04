@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class GPSMonitorService extends Service {
 
-	// 声明位置服务
+	// 澹版槑浣嶇疆鏈嶅姟
 	private LocationManager lm;
 
 	@Override

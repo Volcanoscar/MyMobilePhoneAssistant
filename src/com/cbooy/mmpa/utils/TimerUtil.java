@@ -5,7 +5,7 @@ import android.os.SystemClock;
 public class TimerUtil {
 	
 	/**
-	 * Ö¸¶¨Ê±¼äË¯¶à¾Ã
+	 * æŒ‡å®šæ—¶é—´ç¡å¤šä¹…
 	 * @param start
 	 * @param assertTime
 	 */

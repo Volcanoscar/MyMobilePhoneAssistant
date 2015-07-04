@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
- * 自动具有焦点
+ * 鑷姩鍏锋湁鐒︾偣
  * @author chenhao24
  *
  */
@@ -16,7 +16,7 @@ public class FocusedTextView extends TextView {
 	}
 	
 	/**
-	 * 默认获得焦点
+	 * 榛樿鑾峰緱鐒︾偣
 	 */
 	@Override
 	public boolean isFocused() {

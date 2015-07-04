@@ -48,20 +48,20 @@ public class SetupThreeActivity extends BaseSetupActivity implements OnClickList
 	@Override
 	public void nextStep() {
 		
-		// bug: ´ÓÊäÈë¿ò»ñÈ¡ºÅÂëÅĞ¶Ï
+		// bug: ä»è¾“å…¥æ¡†è·å–å·ç åˆ¤æ–­
 		if(TextUtils.isEmpty(sendSmsText.getText())){
-			Toast.makeText(this, "°²È«ºÅÂëÎ´°ó¶¨", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "å®‰å…¨å·ç æœªç»‘å®š", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
-		// ÏÂÒ»²½Ö®Ç°±£´æºÅÂë
+		// ä¸‹ä¸€æ­¥ä¹‹å‰ä¿å­˜å·ç 
 		Editor editor = sp.edit();
 		
 		editor.putString(StaticDatas.CONFIG_SAFE_PHONE, new StringBuilder().append(sendSmsText.getText()).toString());
 		
 		editor.commit();
 		
-		// Ìø×ªµ½ÏÂÒ»¸öÒ³Ãæ
+		// è·³è½¬åˆ°ä¸‹ä¸€ä¸ªé¡µé¢
 		Intent intent = new Intent(this,SetupFourActivity.class);
 		
 		startActivity(intent);

@@ -1,93 +1,93 @@
 package com.cbooy.mmpa.utils;
 
 /**
- * ÎªÁË¼õÉÙÀàµÄ¾²Ì¬±äÁ¿µÄ¶¨Òå¶ø½«È«²¿µÄ¾²Ì¬±äÁ¿¶¨ÒåÈ«²¿³é³öÀ´·ÅÖÃÔÚÒ»¸öÀàÖĞ
+ * ä¸ºäº†å‡å°‘ç±»çš„é™æ€å˜é‡çš„å®šä¹‰è€Œå°†å…¨éƒ¨çš„é™æ€å˜é‡å®šä¹‰å…¨éƒ¨æŠ½å‡ºæ¥æ”¾ç½®åœ¨ä¸€ä¸ªç±»ä¸­
  * 
  * @author chenhao24
  * 
  */
 public class StaticDatas {
-	// °æ±¾ĞÅÏ¢·µ»ØÂë,ĞèÒª¸üĞÂ
+	// ç‰ˆæœ¬ä¿¡æ¯è¿”å›ç ,éœ€è¦æ›´æ–°
 	public final static int VERSION_NEED_UPDATE = 10001;
 
-	// °æ±¾ĞÅÏ¢·µ»ØÂë,²»ĞèÒª¸üĞÂ
+	// ç‰ˆæœ¬ä¿¡æ¯è¿”å›ç ,ä¸éœ€è¦æ›´æ–°
 	public final static int VERSION_NO_NEED_UPDATE = 10002;
 
-	// ·ÃÎÊÍøÂçµÄURL³ö´í
+	// è®¿é—®ç½‘ç»œçš„URLå‡ºé”™
 	public final static int URL_ERROR = 10003;
 
-	// ÏÂÔØ½ø¶ÈµÄ ×´Ì¬Âë
+	// ä¸‹è½½è¿›åº¦çš„ çŠ¶æ€ç 
 	public final static int DOWNLOAD_PROCESSING = 10004;
 
-	// URLÁ´½Ó³ö´í
+	// URLé“¾æ¥å‡ºé”™
 	public final static int URL_CONNECTION_ERROR = 10004;
 
-	// JSON×ª»»³ö´í
+	// JSONè½¬æ¢å‡ºé”™
 	public final static int JSON_CONVERTOR_ERROR = 10005;
 
-	// ÊÇ·ñÏÂÔØÎÄ¼ş×´Ì¬Âë
+	// æ˜¯å¦ä¸‹è½½æ–‡ä»¶çŠ¶æ€ç 
 	public final static int IS_DOWNLOAD_NEW_VERSION = 10006;
 
-	// ÏµÍ³Éı¼¶¶Ô»°¿ò±»È¡Ïû
+	// ç³»ç»Ÿå‡çº§å¯¹è¯æ¡†è¢«å–æ¶ˆ
 	public final static int DIALOG_DISMISS = 10007;
 
-	// ·ÀµÁÊäÈëÃÜÂëÈ·ÈÏ
+	// é˜²ç›—è¾“å…¥å¯†ç ç¡®è®¤
 	public final static int ANTITHEFT_DIALOG_CONFIRM = 10008;
 
-	// ·ÀµÁÊäÈëÃÜÂëÊäÈë
+	// é˜²ç›—è¾“å…¥å¯†ç è¾“å…¥
 	public final static int ANTITHEFT_DIALOG_ENTER = 10009;
 
-	// ÎÄ¼şÏÂÔØ³É¹¦
+	// æ–‡ä»¶ä¸‹è½½æˆåŠŸ
 	public final static int DOWNLOAD_SUCCESS = 0;
 
-	// com.cbooy.mmpa.utils.HttpUtil ÈÕÖ¾ TAG
+	// com.cbooy.mmpa.utils.HttpUtil æ—¥å¿— TAG
 	public final static String HTTPUTIL_LOG_TAG = "HttpUtil";
 
-	// com.cbooy.mmpa.BootActivity ÈÕÖ¾TAG
+	// com.cbooy.mmpa.BootActivity æ—¥å¿—TAG
 	public final static String BOOTACTIVITY_LOG_TAG = "BootActivity";
 
-	// com.cbooy.mmpa.activity.HomeActivity ÈÕÖ¾ TAG
+	// com.cbooy.mmpa.activity.HomeActivity æ—¥å¿— TAG
 	public final static String HOMEACTIVITY_LOG_TAG = "HomeActivity";
 
-	// com.cbooy.mmpa.activity.antithefts.BaseSetupActivity ÈÕÖ¾ TAG
+	// com.cbooy.mmpa.activity.antithefts.BaseSetupActivity æ—¥å¿— TAG
 	public final static String BASESETUPACTIVITY_LOG_TAG = "BaseSetupActivity";
 
-	// com.cbooy.mmpa.receiver.BootCompletedReceiver ÈÕÖ¾ TAG
+	// com.cbooy.mmpa.receiver.BootCompletedReceiver æ—¥å¿— TAG
 	public final static String BootCompletedReceiver_LOG_TAG = "BootCompletedReceiver";
 
-	// com.cbooy.mmpa.utils.ContactsHelperUtil ÈÕÖ¾ TAG
+	// com.cbooy.mmpa.utils.ContactsHelperUtil æ—¥å¿— TAG
 	public final static String CONTACTSHELPERUTIL_LOG_TAG = "ContactsHelperUtil";
 	
-	// com.cbooy.mmpa.activity.antithefts.ContactsReaderActivity  ÈÕÖ¾ TAG
+	// com.cbooy.mmpa.activity.antithefts.ContactsReaderActivity  æ—¥å¿— TAG
 	public final static String CONTACTSREADERACTIVITY_LOG_TAG = "ContactsReaderActivity";
 	
-	// com.cbooy.mmpa.activity.AntiTheftActivity ÈÕÖ¾ TAG
+	// com.cbooy.mmpa.activity.AntiTheftActivity æ—¥å¿— TAG
 	public final static String ANTITHEFTACTIVITY_LOG_TAG = "AntiTheftActivity";
 	
-	// com.cbooy.mmpa.receiver.SmsMonitorReceiver ÈÕÖ¾ TAG 
+	// com.cbooy.mmpa.receiver.SmsMonitorReceiver æ—¥å¿— TAG 
 	public final static String SMSMONITORRECEIVER_LOG_TAG = "SmsMonitorReceiver";
 	
-	// com.cbooy.mmpa.service.GPSMonitorService ÈÕÖ¾ TAG 
+	// com.cbooy.mmpa.service.GPSMonitorService æ—¥å¿— TAG 
 	public final static String GPSMONITORSERVICE_LOG_TAG = "GPSMonitorService";
 	
-	// ÉèÖÃ°²È«ºÅÂëµÄ ±êÇ©
+	// è®¾ç½®å®‰å…¨å·ç çš„ æ ‡ç­¾
 	public final static String CONFIG_SAFE_PHONE = "bind_phone";
 	
-	// ÉèÖÃ SIM¿¨ °ó¶¨µÄ ĞòÁĞºÅ
+	// è®¾ç½® SIMå¡ ç»‘å®šçš„ åºåˆ—å·
 	public final static String CONFIG_SIM_SERIA_NUM = "sim";
 	
 	// common SharedPreferences config
 	public final static String SP_CONFIG_FILE = "config";
 	
-	// ±¾µØÉèÖÃµÄÃÜÂë
+	// æœ¬åœ°è®¾ç½®çš„å¯†ç 
 	public final static String CONFIG_PASSWD = "passwd";
 	
-	// ÉèÖÃÊÇ·ñ×Ô¶¯¸üĞÂ
+	// è®¾ç½®æ˜¯å¦è‡ªåŠ¨æ›´æ–°
 	public final static String CONFIG_IS_UPDATE = "is_update";
 	
-	// ÉèÖÃÊÇ·ñ¿ªÆô±£»¤
+	// è®¾ç½®æ˜¯å¦å¼€å¯ä¿æŠ¤
 	public final static String CONFIG_IS_PROTECTED = "is_procted";
 	
-	// Î»ÖÃĞÅÏ¢
+	// ä½ç½®ä¿¡æ¯
 	public final static String CONFIG_LOCATION_INFO = "local_location";
 }

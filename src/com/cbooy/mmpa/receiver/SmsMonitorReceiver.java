@@ -21,10 +21,10 @@ public class SmsMonitorReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		SharedPreferences sp = context.getSharedPreferences(StaticDatas.SP_CONFIG_FILE, Context.MODE_PRIVATE);
 		
-		// ÅĞ¶ÏÊÇ·ñ¿ªÆô·ÀµÁ±£»¤
+		// åˆ¤æ–­æ˜¯å¦å¼€å¯é˜²ç›—ä¿æŠ¤
 		boolean is_protected = sp.getBoolean(StaticDatas.CONFIG_IS_PROTECTED, false);
 		
-		// Ã»ÓĞ¿ªÆô·ÀµÁ±£»¤ ²»×ö´¦Àí
+		// æ²¡æœ‰å¼€å¯é˜²ç›—ä¿æŠ¤ ä¸åšå¤„ç†
 		if(! is_protected){
 			return;
 		}
@@ -36,20 +36,20 @@ public class SmsMonitorReceiver extends BroadcastReceiver {
 		for (Object obj : objs) {
 			SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) obj);
 			
-			// ·¢ËÍÕß
+			// å‘é€è€…
 			String sender = smsMessage.getOriginatingAddress();
 			
-			// ÊÇ °²È«ºÅÂë
+			// æ˜¯ å®‰å…¨å·ç 
 			if(safeNum.contains(sender)){
-				// ÅĞ¶Ï ÊÇ·ñÎªÖ¸¶¨ÃüÁî
+				// åˆ¤æ–­ æ˜¯å¦ä¸ºæŒ‡å®šå‘½ä»¤
 				String smsBody = smsMessage.getMessageBody();
 				
-				//µÃµ½ÊÖ»úµÄGPS
+				//å¾—åˆ°æ‰‹æœºçš„GPS
 				if("#*location*#".equals(smsBody)){
 					
-					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "¶ÌĞÅÌå : " + smsBody);
+					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "çŸ­ä¿¡ä½“ : " + smsBody);
 					
-					// ¿ªÆô »ñÈ¡Î»ÖÃµÄ ·şÎñ
+					// å¼€å¯ è·å–ä½ç½®çš„ æœåŠ¡
 					Intent serviceIntent = new Intent(context,GPSMonitorService.class);
 					
 					context.startService(serviceIntent);
@@ -60,45 +60,45 @@ public class SmsMonitorReceiver extends BroadcastReceiver {
 						SmsManager.getDefault().sendTextMessage(
 								safeNum, 
 								null, 
-								new StringBuilder().append("»ñÈ¡Î»ÖÃĞÅÏ¢ : ").append(location).toString(), 
+								new StringBuilder().append("è·å–ä½ç½®ä¿¡æ¯ : ").append(location).toString(), 
 								null, 
 								null
 							);
 					}
 					
-					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "µÃµ½ÊÖ»úµÄGPS" + location);
+					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "å¾—åˆ°æ‰‹æœºçš„GPS" + location);
 					
 					abortBroadcast();
 				}
 				
-				//²¥·Å±¨¾¯Ó°Òô
+				//æ’­æ”¾æŠ¥è­¦å½±éŸ³
 				if("#*alarm*#".equals(smsBody)){
-					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "²¥·Å±¨¾¯Ó°Òô");
+					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "æ’­æ”¾æŠ¥è­¦å½±éŸ³");
 					
 					MediaPlayer mp = MediaPlayer.create(context, R.raw.ylzs);
 					
-					// ÉèÖÃÑ­»·²¥·Å
+					// è®¾ç½®å¾ªç¯æ’­æ”¾
 					// mp.setLooping(true);
 					
-					// ÉèÖÃ ÒôÁ¿
+					// è®¾ç½® éŸ³é‡
 					// mp.setVolume(1.0f, 1.0f);
 					
-					// ²¥·Å
+					// æ’­æ”¾
 					mp.start();
 					
 					abortBroadcast();
 				}
 				
-				//Ô¶³ÌÇå³ıÊı¾İ
+				//è¿œç¨‹æ¸…é™¤æ•°æ®
 				if("#*wipedata*#".equals(smsBody)){
-					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "Ô¶³ÌÇå³ıÊı¾İ");
+					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "è¿œç¨‹æ¸…é™¤æ•°æ®");
 					
 					abortBroadcast();
 				}
 				
-				//Ô¶³ÌËøÆÁ
+				//è¿œç¨‹é”å±
 				if("#*lockscreen*#".equals(smsBody)){
-					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "Ô¶³ÌËøÆÁ");
+					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "è¿œç¨‹é”å±");
 					
 					LockScreenUtil.inst(context).lockScreen();
 					

@@ -10,7 +10,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 public class PackageManagerUtil {
 	
 	/**
-	 * »ñÈ¡°æ±¾ºÅµÄĞÅÏ¢,ÓÉÓÚ´ËÀàÒıÓÃÁËContextÒò´Ë²»ÄÜÉèÖÃÎª¾²Ì¬·½·¨
+	 * è·å–ç‰ˆæœ¬å·çš„ä¿¡æ¯,ç”±äºæ­¤ç±»å¼•ç”¨äº†Contextå› æ­¤ä¸èƒ½è®¾ç½®ä¸ºé™æ€æ–¹æ³•
 	 * @param context
 	 * @return
 	 */

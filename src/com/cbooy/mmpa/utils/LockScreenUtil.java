@@ -13,7 +13,7 @@ public class LockScreenUtil {
 	private static Context context = null;
 	
 	/**
-	 * ÉèÖÃ²ßÂÔ·şÎñ
+	 * è®¾ç½®ç­–ç•¥æœåŠ¡
 	 */
 	private static DevicePolicyManager dpm = null;
 	
@@ -31,7 +31,7 @@ public class LockScreenUtil {
 	}
 	
 	/**
-	 * ¿ªÆôËøÆÁ,ÏÈÅĞ¶ÏÊÇ·ñ¿ªÆôÈ¨ÏŞ
+	 * å¼€å¯é”å±,å…ˆåˆ¤æ–­æ˜¯å¦å¼€å¯æƒé™
 	 */
 	public void lockScreen(){
 		
@@ -39,24 +39,24 @@ public class LockScreenUtil {
 		
 		if(dpm.isAdminActive(who)){
 			
-			// ËøÆÁ
+			// é”å±
 			dpm.lockNow();
 			
-			//ÉèÖÃÆÁ±ÎÃÜÂë
+			//è®¾ç½®å±è”½å¯†ç 
 			dpm.resetPassword("123", 0);
 			
-			//Çå³ıSdcardÉÏµÄÊı¾İ
+			//æ¸…é™¤Sdcardä¸Šçš„æ•°æ®
 			// dpm.wipeData(DevicePolicyManager.WIPE_EXTERNAL_STORAGE);
 		}else{
-			// Ã»ÓĞÈ¨ÏŞ,ĞèÒªÏÈ¿ªÍ¨
+			// æ²¡æœ‰æƒé™,éœ€è¦å…ˆå¼€é€š
 			Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
 			
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 			
 	        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, who);
 	        
-	        //¿ªÆô¹ÜÀíÔ±È¨ÏŞ
-	        intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,"Ò»¼üËøÆÁ");
+	        //å¼€å¯ç®¡ç†å‘˜æƒé™
+	        intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,"ä¸€é”®é”å±");
 	        
 	        context.startActivity(intent);
 		}
@@ -64,12 +64,12 @@ public class LockScreenUtil {
 	
 	public void removePermission() {
 		
-		// 1.ÏÈÇå³ı¹ÜÀíÔ±È¨ÏŞ
+		// 1.å…ˆæ¸…é™¤ç®¡ç†å‘˜æƒé™
 		ComponentName mDeviceAdminSample = new ComponentName(context,MyAdmin.class);
 		
 		dpm.removeActiveAdmin(mDeviceAdminSample);
 		
-		// 2.ÆÕÍ¨Ó¦ÓÃµÄĞ¶ÔØ
+		// 2.æ™®é€šåº”ç”¨çš„å¸è½½
 		Intent intent = new Intent();
 		
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 

@@ -6,15 +6,15 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
 /**
- * Á÷Ïà¹Ø´¦Àí¹¤¾ßÀà
+ * æµç›¸å…³å¤„ç†å·¥å…·ç±»
  * @author chenhao24
  *
  */
 public class StreamUtil {
 	
 	/**
-	 * @param is ÊäÈëÁ÷
-	 * @return String ·µ»ØµÄ×Ö·û´®
+	 * @param is è¾“å…¥æµ
+	 * @return String è¿”å›çš„å­—ç¬¦ä¸²
 	 * @throws IOException
 	 */
 	public static String readFromStream(InputStream is) throws IOException {
@@ -38,7 +38,7 @@ public class StreamUtil {
 	}
 	
 	/**
-	 * ×Ö·û´®±àÂë×ª»»
+	 * å­—ç¬¦ä¸²ç¼–ç è½¬æ¢
 	 * @param resource
 	 * @param resCode
 	 * @param destCode

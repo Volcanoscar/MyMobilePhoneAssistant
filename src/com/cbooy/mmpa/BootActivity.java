@@ -23,31 +23,31 @@ import com.cbooy.mmpa.utils.StaticDatas;
 @SuppressLint("HandlerLeak")
 public class BootActivity extends Activity {
 	
-	// ÏÔÊ¾°æ±¾ºÅµÄTextView
+	// æ˜¾ç¤ºç‰ˆæœ¬å·çš„TextView
 	private TextView tvShowVersion;
 	
-	// °æ±¾
+	// ç‰ˆæœ¬
 	private String versionName;
 	
-	// ÉèÖÃÊ±¼äµÄÆğµã
+	// è®¾ç½®æ—¶é—´çš„èµ·ç‚¹
 	private long start = 0;
 	
-	// boot activity µÄ Æô¶¯½çÃæ
+	// boot activity çš„ å¯åŠ¨ç•Œé¢
 	private RelativeLayout layoutBoot = null;
 	
-	// ¼ì²é¸üĞÂµÄ°æ±¾ĞÅÏ¢
+	// æ£€æŸ¥æ›´æ–°çš„ç‰ˆæœ¬ä¿¡æ¯
 	private UpdateVersionInfo updateVersioInfo = null;
 	
-	// ÏÔÊ¾ÏÂÔØ½ø¶ÈĞÅÏ¢
+	// æ˜¾ç¤ºä¸‹è½½è¿›åº¦ä¿¡æ¯
 	private TextView tvDisplayDownloadProcess = null;
 	
-	// ÅäÖÃÎÄ¼ş
+	// é…ç½®æ–‡ä»¶
 	private SharedPreferences sp;
 	
-	// Ä¬ÈÏÊÇ·ñ ¼ì²éÅäÖÃ
+	// é»˜è®¤æ˜¯å¦ æ£€æŸ¥é…ç½®
 	private boolean isConfigCheckUpdate;
 	
-	// ²»Í¬Ïß³ÌÖ®¼äÍ¨ĞÅ
+	// ä¸åŒçº¿ç¨‹ä¹‹é—´é€šä¿¡
 	private Handler handler = new Handler(){
 		
 		@Override
@@ -55,40 +55,40 @@ public class BootActivity extends Activity {
 			
 			switch (msg.what) {
 				
-				// ĞèÒª¸üĞÂ
+				// éœ€è¦æ›´æ–°
 				case StaticDatas.VERSION_NEED_UPDATE:
 					
 					checkUpdateFiles((String)msg.obj);
 					
 					break;
 					
-				// ÊÇ·ñÏÂÔØ
+				// æ˜¯å¦ä¸‹è½½
 				case StaticDatas.IS_DOWNLOAD_NEW_VERSION:
 					
 					boolean isUpdate = (boolean) msg.obj;
 					
-					Log.i(StaticDatas.BOOTACTIVITY_LOG_TAG, "ÊÇ·ñÏÂÔØµÄ ÅĞ¶Ï " + isUpdate);
+					Log.i(StaticDatas.BOOTACTIVITY_LOG_TAG, "æ˜¯å¦ä¸‹è½½çš„ åˆ¤æ–­ " + isUpdate);
 					
 					if(isUpdate){
 						new HttpUtil(BootActivity.this,handler).downloadFiles(updateVersioInfo.getUpdate_url(),tvDisplayDownloadProcess);
 					}else{
 						
-						// ½øÈëHome Ò³Ãæ
+						// è¿›å…¥Home é¡µé¢
 						goHomeActivity();
 					}
 					
 					break;
 				
-				// Éı¼¶¶Ô»°¿òÈ¡Ïû
+				// å‡çº§å¯¹è¯æ¡†å–æ¶ˆ
 				case StaticDatas.DIALOG_DISMISS :
 					
-					// ½øÈëÖ÷Ò³Ãæ
+					// è¿›å…¥ä¸»é¡µé¢
 					goHomeActivity();
 					
 					break;
 				default:
 					
-					// ½øÈëÖ÷Ò³Ãæ
+					// è¿›å…¥ä¸»é¡µé¢
 					goHomeActivity();
 					
 					break;
@@ -96,11 +96,11 @@ public class BootActivity extends Activity {
 		}
 	};
 	
-	// ¼ì²é¸üĞÂ
+	// æ£€æŸ¥æ›´æ–°
 	private void checkUpdateFiles(String res) {
 		updateVersioInfo = JsonForObjectConverter.StringToObject(res,UpdateVersionInfo.class);
 		
-		// µ¯³ö¶Ô»°¿òÌáÊ¾ÊÇ·ñ¸üĞÂ
+		// å¼¹å‡ºå¯¹è¯æ¡†æç¤ºæ˜¯å¦æ›´æ–°
 		new DialogUtil(this,handler).alertUpdateInfos(updateVersioInfo.getDesc());
 	}
 	
@@ -110,17 +110,17 @@ public class BootActivity extends Activity {
 		
 		setContentView(R.layout.boot_activity);
 		
-		// ³õÊ¼»¯View
+		// åˆå§‹åŒ–View
 		initViews();
 		
-		// ³õÊ¼»¯ Êı¾İ 
+		// åˆå§‹åŒ– æ•°æ® 
 		initDatas();
 	}
 	
-	// ½øÈëÖ÷Ò³Ãæ
+	// è¿›å…¥ä¸»é¡µé¢
 	private void goHomeActivity() {
 		
-		// Ìø×ªµ½ HomeÒ³
+		// è·³è½¬åˆ° Homeé¡µ
 		Intent intent = new Intent(this,HomeActivity.class);
 		
 		startActivity(intent);
@@ -129,57 +129,57 @@ public class BootActivity extends Activity {
 	}
 
 	/**
-	 * ³õÊ¼»¯Êı¾İ
+	 * åˆå§‹åŒ–æ•°æ®
 	 */
 	private void initDatas() {
 		
-		// ÉèÖÃÊ±¼äµÄÆğµã
+		// è®¾ç½®æ—¶é—´çš„èµ·ç‚¹
 		start = System.currentTimeMillis();
 		
-		// »ñÈ¡°æ±¾ºÅ
+		// è·å–ç‰ˆæœ¬å·
 		versionName = new PackageManagerUtil().getVersion(this);
 		
-		// ÉèÖÃ°æ±¾
-		tvShowVersion.setText("°æ±¾: " + versionName);
+		// è®¾ç½®ç‰ˆæœ¬
+		tvShowVersion.setText("ç‰ˆæœ¬: " + versionName);
 		
 		sp = this.getSharedPreferences(StaticDatas.SP_CONFIG_FILE, MODE_PRIVATE);
 		
 		isConfigCheckUpdate = sp.getBoolean(StaticDatas.CONFIG_IS_UPDATE, true);
 		
 		if(isConfigCheckUpdate){
-			// ¼ì²é°æ±¾ĞÅÏ¢ÊÇ·ñĞèÒª¸üĞÂ
+			// æ£€æŸ¥ç‰ˆæœ¬ä¿¡æ¯æ˜¯å¦éœ€è¦æ›´æ–°
 			new HttpUtil(this,handler).checkUpdateInfos(versionName,start);
 		}else{
 			
 			handler.postDelayed(new Runnable(){
 				@Override
 				public void run() {
-					// ½øÈëÖ÷Ò³
+					// è¿›å…¥ä¸»é¡µ
 					goHomeActivity();
 				}}, 2000);
 		}
 	}
 
 	/**
-	 * ¶Ô±¾Ò³ÃæµÄÒ»Ğ©View³õÊ¼»¯
+	 * å¯¹æœ¬é¡µé¢çš„ä¸€äº›Viewåˆå§‹åŒ–
 	 */
 	private void initViews() {
 		
-		// °æ±¾ĞÅÏ¢µÄ¶ÔÏó
+		// ç‰ˆæœ¬ä¿¡æ¯çš„å¯¹è±¡
 		tvShowVersion = (TextView) this.findViewById(R.id.tv_show_version);
 		
-		// ¼ÓÔØ²¼¾ÖÎÄ¼ş
+		// åŠ è½½å¸ƒå±€æ–‡ä»¶
 		layoutBoot = (RelativeLayout) this.findViewById(R.id.boot_activity_layout);
 		
-		// ÏÔÊ¾ÏÂÔØ½ø¶È
+		// æ˜¾ç¤ºä¸‹è½½è¿›åº¦
 		tvDisplayDownloadProcess = (TextView) this.findViewById(R.id.tv_show_download_process);
 		
-		// ¶¯»­Ğ§¹û
+		// åŠ¨ç”»æ•ˆæœ
 		displayForAnimation();
 	}
 	
 	/**
-	 * ¶¯»­Õ¹Ê¾Ğ§¹û
+	 * åŠ¨ç”»å±•ç¤ºæ•ˆæœ
 	 */
 	private void displayForAnimation() {
 		AlphaAnimation animation = new AlphaAnimation(0.1f,1.0f);

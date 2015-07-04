@@ -9,13 +9,13 @@ public class MD5Utils {
 	}
 	
 	/**
-	 * MD5¼ÓÃÜ
+	 * MD5åŠ å¯†
 	 * @param password
 	 * @return
 	 */
 	public static String md5(String password) {
 
-		// µÃµ½Ò»¸öĞÅÏ¢ÕªÒªÆ÷
+		// å¾—åˆ°ä¸€ä¸ªä¿¡æ¯æ‘˜è¦å™¨
 		MessageDigest digest = null;
 
 		try {
@@ -30,9 +30,9 @@ public class MD5Utils {
 
 		String str = "";
 
-		// ÓëÔËËã 0xff;
+		// ä¸è¿ç®— 0xff;
 		for (int index = 0; index < result.length; index++) {
-			// ¼ÓÑÎ
+			// åŠ ç›
 			int number = result[index] & 0xff;
 
 			str = Integer.toHexString(number);
@@ -44,7 +44,7 @@ public class MD5Utils {
 			stringBuilder.append(str);
 		}
 
-		// ±ê×¼µÄmd5¼ÓÃÜºóµÄ½á¹û
+		// æ ‡å‡†çš„md5åŠ å¯†åçš„ç»“æœ
 		return stringBuilder.toString();
 	}
 }

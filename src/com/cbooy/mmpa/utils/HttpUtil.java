@@ -26,7 +26,7 @@ import android.widget.Toast;
 import com.cbooy.mmpa.R;
 
 /**
- * Http ÇëÇó ¹¤¾ßÀà
+ * Http è¯·æ±‚ å·¥å…·ç±»
  * @author chenhao24
  *
  */
@@ -42,7 +42,7 @@ public class HttpUtil {
 	}
 	
 	/**
-	 * ÏÂÔØÎÄ¼şµ½ÏîÄ¿µÄsdcard
+	 * ä¸‹è½½æ–‡ä»¶åˆ°é¡¹ç›®çš„sdcard
 	 * @param downloadUrl
 	 */
 	public void downloadFiles(String downloadUrl,final TextView refreshView){
@@ -53,7 +53,7 @@ public class HttpUtil {
 			
 			String fileName = Environment.getExternalStorageDirectory().getAbsolutePath() + downloadUrl.substring(downloadUrl.lastIndexOf("/"));
 			
-			Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "½âÎö³öÀ´µÄÎÄ¼şÃû×ÖÎª: " + fileName);
+			Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "è§£æå‡ºæ¥çš„æ–‡ä»¶åå­—ä¸º: " + fileName);
 			
 			FinalHttp httpFinal = new FinalHttp();
 			
@@ -62,8 +62,8 @@ public class HttpUtil {
 				@Override
 				public void onFailure(Throwable t, int errorNo, String strMsg) {
 					super.onFailure(t, errorNo, strMsg);
-					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "ÏÂÔØÊ§°Ü" + t.getMessage());
-					Toast.makeText(activity, "ÏÂÔØÊ§°Ü", Toast.LENGTH_SHORT).show();
+					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "ä¸‹è½½å¤±è´¥" + t.getMessage());
+					Toast.makeText(activity, "ä¸‹è½½å¤±è´¥", Toast.LENGTH_SHORT).show();
 				}
 
 				@Override
@@ -75,7 +75,7 @@ public class HttpUtil {
 						@Override
 						public void run() {
 							refreshView.setVisibility(View.VISIBLE);
-							refreshView.setText("µ±Ç°ÏÂÔØ½ø¶ÈÎª:" + (current * 100 / count) + "%");
+							refreshView.setText("å½“å‰ä¸‹è½½è¿›åº¦ä¸º:" + (current * 100 / count) + "%");
 						}});
 				}
 
@@ -83,7 +83,7 @@ public class HttpUtil {
 				public void onSuccess(File t) {
 					super.onSuccess(t);
 					
-					// °²×°
+					// å®‰è£…
 					new InstallerApkUtil(activity,t).install();
 				}
 				
@@ -92,7 +92,7 @@ public class HttpUtil {
 	}
 	
 	/**
-	 * ¼ì²éÉı¼¶µÄ·½·¨,ÓÉÓÚ´ËÀàÒıÈëÁËContextÒò´Ë²»ÄÜÉèÖÃ³É¾²Ì¬·½·¨
+	 * æ£€æŸ¥å‡çº§çš„æ–¹æ³•,ç”±äºæ­¤ç±»å¼•å…¥äº†Contextå› æ­¤ä¸èƒ½è®¾ç½®æˆé™æ€æ–¹æ³•
 	 * @param context
 	 * @param oldVersion
 	 * @param handler
@@ -100,12 +100,12 @@ public class HttpUtil {
 	 */
 	public void checkUpdateInfos(final String oldVersion,final long start){
 		
-		// ²ÎÊı¼ì²é
+		// å‚æ•°æ£€æŸ¥
 		if(context == null || oldVersion == null){
 			return;
 		}
 		
-		// ¿ªÆôÏß³Ì
+		// å¼€å¯çº¿ç¨‹
 		new Thread(new Runnable(){
 			@Override
 			public void run() {
@@ -127,13 +127,13 @@ public class HttpUtil {
 					
 					int code = conn.getResponseCode();
 					
-					// ÁªÍø³É¹¦
+					// è”ç½‘æˆåŠŸ
 					if(code / 200 == 1){
 						
-						// »ñÈ¡ ÊäÈëÁ÷ ²¢×ª»»³É×Ö·û´®
+						// è·å– è¾“å…¥æµ å¹¶è½¬æ¢æˆå­—ç¬¦ä¸²
 						String res = StreamUtil.readFromStream(conn.getInputStream());
 						
-						Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "ÁªÍø¼ì²éupdate³É¹¦,·µ»Ø½á¹ûÎª " + res);
+						Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "è”ç½‘æ£€æŸ¥updateæˆåŠŸ,è¿”å›ç»“æœä¸º " + res);
 						
 						JSONObject jsObj = new JSONObject(res);
 						
@@ -142,7 +142,7 @@ public class HttpUtil {
 							
 							msg.obj = res;
 						}else{
-							// ²»ĞèÒª¼ì²é¸üĞÂ
+							// ä¸éœ€è¦æ£€æŸ¥æ›´æ–°
 							msg.what = StaticDatas.VERSION_NO_NEED_UPDATE;
 						}
 						
@@ -151,36 +151,36 @@ public class HttpUtil {
 						res = null;
 					}
 				} catch (MalformedURLException e) {
-					// URL´íÎó
+					// URLé”™è¯¯
 					msg.what = StaticDatas.URL_ERROR;
 					
-					Log.e(StaticDatas.HTTPUTIL_LOG_TAG, "URL³ö´í£¬Òì³£ĞÅÏ¢Îª" + e.getMessage());
+					Log.e(StaticDatas.HTTPUTIL_LOG_TAG, "URLå‡ºé”™ï¼Œå¼‚å¸¸ä¿¡æ¯ä¸º" + e.getMessage());
 				} catch (IOException e) {
-					// ÍøÂçÁ¬½Ó³ö´í
+					// ç½‘ç»œè¿æ¥å‡ºé”™
 					msg.what = StaticDatas.URL_CONNECTION_ERROR;
 					
-					Log.e(StaticDatas.HTTPUTIL_LOG_TAG, "URLÁ´½Ó³ö´í£¬Òì³£ĞÅÏ¢Îª" + e.getMessage());
+					Log.e(StaticDatas.HTTPUTIL_LOG_TAG, "URLé“¾æ¥å‡ºé”™ï¼Œå¼‚å¸¸ä¿¡æ¯ä¸º" + e.getMessage());
 				} catch (JSONException e) {
-					// JSON×ª»»³ö´í
+					// JSONè½¬æ¢å‡ºé”™
 					msg.what = StaticDatas.JSON_CONVERTOR_ERROR;
 					
-					Log.e(StaticDatas.HTTPUTIL_LOG_TAG, "JSON×ª»»³ö´í£¬Òì³£ĞÅÏ¢Îª" + e.getMessage());
+					Log.e(StaticDatas.HTTPUTIL_LOG_TAG, "JSONè½¬æ¢å‡ºé”™ï¼Œå¼‚å¸¸ä¿¡æ¯ä¸º" + e.getMessage());
 				}finally{
 					
-					// ÔÚ´Ë¼ÆËãºÄÊ±
+					// åœ¨æ­¤è®¡ç®—è€—æ—¶
 					long current = System.currentTimeMillis();
 					
 					long dtime = current - start;
 					
-					Log.i(StaticDatas.BOOTACTIVITY_LOG_TAG, "Ê±¼ä²î" + String.valueOf(dtime));
+					Log.i(StaticDatas.BOOTACTIVITY_LOG_TAG, "æ—¶é—´å·®" + String.valueOf(dtime));
 					
 					if(dtime < 2000){
 						SystemClock.sleep(2000 - dtime);
-						Log.i(StaticDatas.BOOTACTIVITY_LOG_TAG, "Ë¯" + String.valueOf(2000 - dtime));
+						Log.i(StaticDatas.BOOTACTIVITY_LOG_TAG, "ç¡" + String.valueOf(2000 - dtime));
 					}
 					
 					
-					// ½«ÏûÏ¢·¢³ö
+					// å°†æ¶ˆæ¯å‘å‡º
 					handler.sendMessage(msg);
 					
 					msg = null;

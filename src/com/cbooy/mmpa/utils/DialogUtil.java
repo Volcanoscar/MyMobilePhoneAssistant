@@ -21,7 +21,7 @@ public class DialogUtil {
 	}
 	
 	/**
-	 * Éı¼¶µÄ¶Ô»°¿ò,ÌáÊ¾ÊÇ·ñĞèÒªÉı¼¶
+	 * å‡çº§çš„å¯¹è¯æ¡†,æç¤ºæ˜¯å¦éœ€è¦å‡çº§
 	 * @param context
 	 * @param desc
 	 * @param handler
@@ -30,7 +30,7 @@ public class DialogUtil {
 		
 		AlertDialog.Builder dialogBuilder = new Builder(context);
 		
-		dialogBuilder.setTitle("ÏµÍ³Éı¼¶");
+		dialogBuilder.setTitle("ç³»ç»Ÿå‡çº§");
 		
 		dialogBuilder.setMessage(desc);
 		
@@ -38,8 +38,8 @@ public class DialogUtil {
 		
 		msg.what = StaticDatas.IS_DOWNLOAD_NEW_VERSION;
 		
-		// Ìí¼ÓÈ·¶¨°´Å¥µÄ ¼àÌıÆ÷
-		dialogBuilder.setPositiveButton("Á¢¿ÌÉı¼¶", new OnClickListener(){
+		// æ·»åŠ ç¡®å®šæŒ‰é’®çš„ ç›‘å¬å™¨
+		dialogBuilder.setPositiveButton("ç«‹åˆ»å‡çº§", new OnClickListener(){
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -51,8 +51,8 @@ public class DialogUtil {
 				handler.sendMessage(msg);
 			}});
 		
-		// Ìí¼ÓÈ¡Ïû°´Å¥µÄ ¼àÌıÆ÷
-		dialogBuilder.setNegativeButton("ÏÂ´ÎÔÙËµ", new OnClickListener(){
+		// æ·»åŠ å–æ¶ˆæŒ‰é’®çš„ ç›‘å¬å™¨
+		dialogBuilder.setNegativeButton("ä¸‹æ¬¡å†è¯´", new OnClickListener(){
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -63,7 +63,7 @@ public class DialogUtil {
 				handler.sendMessage(msg);
 			}});
 		
-		// Ìí¼ÓÈ¡Ïû°´Å¥µÄ¼àÌı
+		// æ·»åŠ å–æ¶ˆæŒ‰é’®çš„ç›‘å¬
 		dialogBuilder.setOnCancelListener(new OnCancelListener(){
 			@Override
 			public void onCancel(DialogInterface dialog) {

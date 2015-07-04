@@ -41,7 +41,7 @@ public class SetupFourActivity extends BaseSetupActivity {
 		
 		boolean is_protected = sp.getBoolean(StaticDatas.CONFIG_IS_PROTECTED, false);
 		
-		// ÉèÖÃ ÏÔÊ¾ ±£»¤
+		// è®¾ç½® æ˜¾ç¤º ä¿æŠ¤
 		setProtectedView(is_protected);
 		
 		chkBoxProtected.setOnCheckedChangeListener(new OnCheckedChangeListener(){
@@ -50,7 +50,7 @@ public class SetupFourActivity extends BaseSetupActivity {
 			public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
 				setProtectedView(isChecked);
 				
-				// ±£´æÉèÖÃ
+				// ä¿å­˜è®¾ç½®
 				Editor editor = sp.edit();
 				
 				editor.putBoolean(StaticDatas.CONFIG_IS_PROTECTED, isChecked);
@@ -62,10 +62,10 @@ public class SetupFourActivity extends BaseSetupActivity {
 	private void setProtectedView(boolean isChecked){
 		if(isChecked){
 			chkBoxProtected.setChecked(isChecked);
-			chkBoxProtected.setText("ÄúÒÑ¿ªÆô·ÀµÁ±£»¤");
+			chkBoxProtected.setText("æ‚¨å·²å¼€å¯é˜²ç›—ä¿æŠ¤");
 		}else{
 			chkBoxProtected.setChecked(isChecked);
-			chkBoxProtected.setText("ÄúÎ´¿ªÆô·ÀµÁ±£»¤");
+			chkBoxProtected.setText("æ‚¨æœªå¼€å¯é˜²ç›—ä¿æŠ¤");
 		}
 	}
 }

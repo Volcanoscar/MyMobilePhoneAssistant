@@ -32,7 +32,7 @@ public class HomeActivity extends Activity {
 		@Override
 		public void handleMessage(Message msg) {
 
-			// È·ÈÏ
+			// ç¡®è®¤
 			if (msg.what == StaticDatas.ANTITHEFT_DIALOG_CONFIRM) {
 				boolean isConfirm = (boolean) msg.obj;
 
@@ -41,7 +41,7 @@ public class HomeActivity extends Activity {
 				}
 			}
 
-			// ÊäÈë
+			// è¾“å…¥
 			if (msg.what == StaticDatas.ANTITHEFT_DIALOG_ENTER) {
 				boolean isEnter = (boolean) msg.obj;
 
@@ -52,8 +52,8 @@ public class HomeActivity extends Activity {
 		}
 	};
 
-	private String[] names = new String[] { "ÊÖ»ú·ÀµÁ", "Í¨Ñ¶ÎÀÊ¿", "Èí¼ş¹ÜÀí", "½ø³Ì¹ÜÀí",
-			"Á÷Á¿Í³¼Æ", "ÊÖ»úÉ±¶¾", "»º´æÇåÀí", "¸ß¼¶¹¤¾ß", "ÉèÖÃÖĞĞÄ" };
+	private String[] names = new String[] { "æ‰‹æœºé˜²ç›—", "é€šè®¯å«å£«", "è½¯ä»¶ç®¡ç†", "è¿›ç¨‹ç®¡ç†",
+			"æµé‡ç»Ÿè®¡", "æ‰‹æœºæ€æ¯’", "ç¼“å­˜æ¸…ç†", "é«˜çº§å·¥å…·", "è®¾ç½®ä¸­å¿ƒ" };
 
 	private int[] ids = new int[] { R.drawable.safe, R.drawable.callmsgsafe,
 			R.drawable.app, R.drawable.taskmanager, R.drawable.netmanager,
@@ -78,24 +78,24 @@ public class HomeActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				// ½øÈë ÉèÖÃÖĞĞÄ
+				// è¿›å…¥ è®¾ç½®ä¸­å¿ƒ
 				if (8 == position) {
 					Intent intent = new Intent(HomeActivity.this,SettingActivity.class);
 
 					startActivity(intent);
 				}
 
-				// ÊÖ»ú·ÀµÁ
+				// æ‰‹æœºé˜²ç›—
 				if (0 == position) {
 
-					// È¡³öÃÜÂë
+					// å–å‡ºå¯†ç 
 					String oldPasswd = sp.getString(StaticDatas.CONFIG_PASSWD, null);
 
-					// Ã»ÓĞÉèÖÃ,µ¯³ö ÊäÈëÃÜÂë²¢È·ÈÏ
+					// æ²¡æœ‰è®¾ç½®,å¼¹å‡º è¾“å…¥å¯†ç å¹¶ç¡®è®¤
 					if (TextUtils.isEmpty(oldPasswd)) {
 						new AntiTheftDialog(HomeActivity.this, handler).confirmDialog();
 					} else {
-						// ÒÑ¾­ÉèÖÃ£¬µ¯³öÊäÈëÃÜÂë
+						// å·²ç»è®¾ç½®ï¼Œå¼¹å‡ºè¾“å…¥å¯†ç 
 						new AntiTheftDialog(HomeActivity.this, handler).enterPasswd(oldPasswd);
 					}
 				}
@@ -104,7 +104,7 @@ public class HomeActivity extends Activity {
 	}
 
 	/**
-	 * ÇĞ»»µ½ ·ÀµÁÒ³Ãæ
+	 * åˆ‡æ¢åˆ° é˜²ç›—é¡µé¢
 	 */
 	protected void goAntiTheftActivity() {
 		Intent intent = new Intent(this, AntiTheftActivity.class);

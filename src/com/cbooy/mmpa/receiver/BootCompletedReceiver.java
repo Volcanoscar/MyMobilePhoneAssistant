@@ -31,7 +31,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 		
 		boolean is_protected = sp.getBoolean(StaticDatas.CONFIG_IS_PROTECTED, false);
 		
-		// Ã»ÓĞ¿ªÆô·ÀµÁ±£»¤Ôò ÎŞÊÓ
+		// æ²¡æœ‰å¼€å¯é˜²ç›—ä¿æŠ¤åˆ™ æ— è§†
 		if(! is_protected){
 			return ;
 		}
@@ -43,14 +43,14 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 		String currentSeriaNum = tm.getSimSerialNumber();
 		
 		if(! TextUtils.isEmpty(oldSeriaNum)){
-			// SIM¿¨ ·¢Éú±ä¸ü
+			// SIMå¡ å‘ç”Ÿå˜æ›´
 			if(! oldSeriaNum.equals(currentSeriaNum)){
 				
-				//·¢¶ÌĞÅ
+				//å‘çŸ­ä¿¡
 				SmsManager.getDefault().sendTextMessage(
 						sp.getString(StaticDatas.CONFIG_SAFE_PHONE, ""), 
 						null, 
-						"ÊÖ»úSIM¿¨±ä¸ü", 
+						"æ‰‹æœºSIMå¡å˜æ›´", 
 						null, 
 						null);
 			}

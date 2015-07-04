@@ -31,11 +31,11 @@ public class BestLocationListener implements LocationListener {
 	}
 
 	/**
-	 * ¼àÌı Î»ÖÃ ±ä»¯
+	 * ç›‘å¬ ä½ç½® å˜åŒ–
 	 */
 	@Override
 	public void onLocationChanged(Location location) {
-		//»ñÈ¡¾«È·¶È
+		//è·å–ç²¾ç¡®åº¦
 		//float accuracy = location.getAccuracy();
 		
 		try {
@@ -43,13 +43,13 @@ public class BestLocationListener implements LocationListener {
 			
 			PointDouble pd = offset.c2s(new PointDouble(location.getLongitude(),location.getLatitude()));
 			
-			//»ñÈ¡¾­¶È
+			//è·å–ç»åº¦
 			double longitude = pd.x;
 			
-			//»ñÈ¡Î³¶È
+			//è·å–çº¬åº¦
 			double latitude = pd.y;
 			
-			//½«Î»ÖÃĞÅÏ¢´æÆğÀ´
+			//å°†ä½ç½®ä¿¡æ¯å­˜èµ·æ¥
 			editor.putString(StaticDatas.CONFIG_LOCATION_INFO, new StringBuilder().append(longitude).append(":").append(latitude).toString());
 			
 			editor.commit();

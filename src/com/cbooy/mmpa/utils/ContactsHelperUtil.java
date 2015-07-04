@@ -13,7 +13,7 @@ import android.net.Uri;
 public class ContactsHelperUtil {
 	
 	/**
-	 * ¶ÁÈ¡ ÁªÏµÈË
+	 * è¯»å– è”ç³»äºº
 	 * @param context
 	 * @return
 	 */

@@ -35,7 +35,7 @@ public class AntiTheftDialog {
 	}
 	
 	/**
-	 * ÉèÖÃÃÜÂë
+	 * è®¾ç½®å¯†ç 
 	 */
 	public void confirmDialog() {
 		
@@ -53,7 +53,7 @@ public class AntiTheftDialog {
 		
 		Button btnOK = (Button) view.findViewById(R.id.btn_confirm_ok);
 		
-		// µã»÷È·¶¨
+		// ç‚¹å‡»ç¡®å®š
 		btnOK.setOnClickListener(new View.OnClickListener(){
 
 			@Override
@@ -62,12 +62,12 @@ public class AntiTheftDialog {
 				String passwd2 = edPasswd2.getText().toString().trim();
 				
 				if(TextUtils.isEmpty(passwd1) && TextUtils.isEmpty(passwd2)){
-					Toast.makeText(context, "ÃÜÂë²»ÄÜÎª¿Õ", Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, "å¯†ç ä¸èƒ½ä¸ºç©º", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				
 				if(!passwd1.equals(passwd2)){
-					Toast.makeText(context, "ÊäÈëÃÜÂë²»Ò»ÖÂ", Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, "è¾“å…¥å¯†ç ä¸ä¸€è‡´", Toast.LENGTH_SHORT).show();
 					edPasswd1.setText("");
 					edPasswd2.setText("");
 					return;
@@ -75,7 +75,7 @@ public class AntiTheftDialog {
 				
 				dialog.dismiss();
 				
-				// ÃÜÂëÉèÖÃ³É¹¦ ´æ´¢µ½±¾µØ
+				// å¯†ç è®¾ç½®æˆåŠŸ å­˜å‚¨åˆ°æœ¬åœ°
 				Editor editor = sp.edit();
 				
 				editor.putString(StaticDatas.CONFIG_PASSWD, MD5Utils.md5(passwd2));
@@ -89,7 +89,7 @@ public class AntiTheftDialog {
 		
 		Button btnCancel = (Button) view.findViewById(R.id.btn_confirm_cancel);
 		
-		// µã»÷È¡Ïû
+		// ç‚¹å‡»å–æ¶ˆ
 		btnCancel.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -102,7 +102,7 @@ public class AntiTheftDialog {
 	}
 	
 	/**
-	 * ÊäÈëÃÜÂë
+	 * è¾“å…¥å¯†ç 
 	 * @param oldPasswd
 	 */
 	public void enterPasswd(final String oldPasswd) {
@@ -119,7 +119,7 @@ public class AntiTheftDialog {
 		
 		Button btnOK = (Button) view.findViewById(R.id.btn_enter_ok);
 		
-		// µã»÷È·¶¨
+		// ç‚¹å‡»ç¡®å®š
 		btnOK.setOnClickListener(new View.OnClickListener(){
 
 			@Override
@@ -127,12 +127,12 @@ public class AntiTheftDialog {
 				String passwd1 = edPasswd1.getText().toString().trim();
 				
 				if(TextUtils.isEmpty(passwd1)){
-					Toast.makeText(context, "ÃÜÂë²»ÄÜÎª¿Õ", Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, "å¯†ç ä¸èƒ½ä¸ºç©º", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				
 				if(!MD5Utils.md5(passwd1).equals(oldPasswd)){
-					Toast.makeText(context, "ÃÜÂëÊäÈë´íÎó", Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, "å¯†ç è¾“å…¥é”™è¯¯", Toast.LENGTH_SHORT).show();
 					edPasswd1.setText("");
 					return;
 				}
@@ -146,7 +146,7 @@ public class AntiTheftDialog {
 		
 		Button btnCancel = (Button) view.findViewById(R.id.btn_enter_cancel);
 		
-		// µã»÷È¡Ïû
+		// ç‚¹å‡»å–æ¶ˆ
 		btnCancel.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {

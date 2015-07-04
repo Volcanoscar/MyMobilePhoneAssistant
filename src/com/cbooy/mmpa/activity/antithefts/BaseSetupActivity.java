@@ -15,13 +15,13 @@ import com.cbooy.mmpa.utils.StaticDatas;
 
 public abstract class BaseSetupActivity extends Activity {
 	
-	// ÏÂÒ»¸öÒ³Ãæ
+	// ä¸‹ä¸€ä¸ªé¡µé¢
 	protected Class<?> nextActivity;
 	
-	// ÉÏÒ»¸öÒ³Ãæ
+	// ä¸Šä¸€ä¸ªé¡µé¢
 	protected Class<?> preActivity;
 	
-	// ÊÖÊÆÊ¶±ğÆ÷
+	// æ‰‹åŠ¿è¯†åˆ«å™¨
 	private GestureDetector gd = null;
 	
 	protected SharedPreferences sp;
@@ -33,33 +33,33 @@ public abstract class BaseSetupActivity extends Activity {
 		
 		sp = getSharedPreferences(StaticDatas.SP_CONFIG_FILE, MODE_PRIVATE);
 		
-		// ÊµÀı»¯ ÊÖÊÆÊ¶±ğÆ÷
+		// å®ä¾‹åŒ– æ‰‹åŠ¿è¯†åˆ«å™¨
 		gd = new GestureDetector(this, new SimpleOnGestureListener() {
 			/**
-			 * ¸²¸Ç »¬¶¯ ·½·¨
+			 * è¦†ç›– æ»‘åŠ¨ æ–¹æ³•
 			 */
 			@Override
 			public boolean onFling(MotionEvent e1, MotionEvent e2,float velocityX, float velocityY) {
 				Log.i(StaticDatas.BASESETUPACTIVITY_LOG_TAG, "event touch ..." + e1.getRawX() + "\t" + e2.getRawX());
-				// ÆÁ±Î»¬¶¯»ºÂı
+				// å±è”½æ»‘åŠ¨ç¼“æ…¢
 				// if (Math.abs(velocityX) < 200) {
 				// return true;
 				// }
 				
-				// ÆÁ±ÎÉÏÏÂ»¬¶¯
+				// å±è”½ä¸Šä¸‹æ»‘åŠ¨
 				// if (Math.abs(e1.getRawY() - e2.getRawY()) > 100) {
 				// return true;
 				// }
 				
-				// Ïò×ó»¬¶¯ ÏÂÒ»Ò³
+				// å‘å·¦æ»‘åŠ¨ ä¸‹ä¸€é¡µ
 				if (e1.getRawX() - e2.getRawX() > 200) {
-					Log.i(StaticDatas.BASESETUPACTIVITY_LOG_TAG, "ÏÂÒ»Ò³");
+					Log.i(StaticDatas.BASESETUPACTIVITY_LOG_TAG, "ä¸‹ä¸€é¡µ");
 					nextStep();
 				}
 				
-				// ÏòÓÒ»¬¶¯ ÉÏÒ»Ò³
+				// å‘å³æ»‘åŠ¨ ä¸Šä¸€é¡µ
 				if (e2.getRawX() - e1.getRawX() > 200) {
-					Log.i(StaticDatas.BASESETUPACTIVITY_LOG_TAG, "ÉÏÒ»Ò³");
+					Log.i(StaticDatas.BASESETUPACTIVITY_LOG_TAG, "ä¸Šä¸€é¡µ");
 					preStep();
 				}
 				
@@ -67,12 +67,12 @@ public abstract class BaseSetupActivity extends Activity {
 			}
 		});
 		
-		// ³õÊ¼»¯
+		// åˆå§‹åŒ–
 		init();
 	}
 	
 	/**
-	 * ×ÓÀà¸²Ğ´´Ë·½·¨ À´³õÊ¼»¯
+	 * å­ç±»è¦†å†™æ­¤æ–¹æ³• æ¥åˆå§‹åŒ–
 	 */
 	public abstract void init();
 	
@@ -82,12 +82,12 @@ public abstract class BaseSetupActivity extends Activity {
 		return super.onTouchEvent(event);
 	}
 	
-	// ÏÂÒ»¸öÒ³Ãæ
+	// ä¸‹ä¸€ä¸ªé¡µé¢
 	public void next(View v){
 		nextStep();
 	}
 	
-	// ÉÏÒ»¸ö Ò³Ãæ
+	// ä¸Šä¸€ä¸ª é¡µé¢
 	public void pre(View v){
 		preStep();
 	}

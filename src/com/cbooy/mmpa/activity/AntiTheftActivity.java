@@ -25,7 +25,7 @@ public class AntiTheftActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		// ½øÈë ÉèÖÃ ½á¹ûÒ³
+		// è¿›å…¥ è®¾ç½® ç»“æœé¡µ
 		setContentView(R.layout.antitheft_activity);
 
 		sp = getSharedPreferences("config", MODE_PRIVATE);
@@ -37,7 +37,7 @@ public class AntiTheftActivity extends Activity {
 		imageLock = (ImageView) this.findViewById(R.id.iv_lock);
 		
 		if (!isSetup) {
-			// ½øÈëÏòµ¼ÉèÖÃÒ³
+			// è¿›å…¥å‘å¯¼è®¾ç½®é¡µ
 			Intent intent = new Intent(this, SetupOneActivity.class);
 
 			startActivity(intent);
@@ -46,7 +46,7 @@ public class AntiTheftActivity extends Activity {
 		} else {
 			String safePhone = sp.getString(StaticDatas.CONFIG_SAFE_PHONE, null);
 			
-			Log.i(StaticDatas.ANTITHEFTACTIVITY_LOG_TAG, "°²È«ºÅÂë : " + safePhone);
+			Log.i(StaticDatas.ANTITHEFTACTIVITY_LOG_TAG, "å®‰å…¨å·ç  : " + safePhone);
 			
 			if(! TextUtils.isEmpty(safePhone)){
 				tvSafePhone.setText(safePhone);
@@ -54,7 +54,7 @@ public class AntiTheftActivity extends Activity {
 			
 			boolean is_protected = sp.getBoolean(StaticDatas.CONFIG_IS_PROTECTED, false);
 			
-			Log.i(StaticDatas.ANTITHEFTACTIVITY_LOG_TAG, "ÊÇ·ñ¿ªÆô±£»¤ : " + is_protected);
+			Log.i(StaticDatas.ANTITHEFTACTIVITY_LOG_TAG, "æ˜¯å¦å¼€å¯ä¿æŠ¤ : " + is_protected);
 			
 			if(is_protected){
 				imageLock.setImageResource(R.drawable.lock);
@@ -65,7 +65,7 @@ public class AntiTheftActivity extends Activity {
 	}
 
 	public void reEnterSetup(View v) {
-		// ½øÈëÏòµ¼ÉèÖÃÒ³
+		// è¿›å…¥å‘å¯¼è®¾ç½®é¡µ
 		Intent intent = new Intent(this, SetupOneActivity.class);
 
 		startActivity(intent);
