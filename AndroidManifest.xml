@@ -50,7 +50,8 @@
         <activity android:name="com.cbooy.mmpa.activity.antithefts.SetupTwoActivity" />
         <activity android:name="com.cbooy.mmpa.activity.antithefts.SetupFourActivity" />
         <activity android:name="com.cbooy.mmpa.activity.antithefts.ContactsReaderActivity" />
-
+        <activity android:name="com.cbooy.mmpa.activity.SeniorToolsActivity"/>
+		<activity android:name="com.cbooy.mmpa.activity.seniortools.SearchPhotoNumberLocal"/>
         <receiver android:name="com.cbooy.mmpa.receiver.BootCompletedReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

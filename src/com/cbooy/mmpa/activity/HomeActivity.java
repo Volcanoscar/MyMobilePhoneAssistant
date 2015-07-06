@@ -78,13 +78,6 @@ public class HomeActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				// 进入 设置中心
-				if (8 == position) {
-					Intent intent = new Intent(HomeActivity.this,SettingActivity.class);
-
-					startActivity(intent);
-				}
-
 				// 手机防盗
 				if (0 == position) {
 
@@ -98,6 +91,20 @@ public class HomeActivity extends Activity {
 						// 已经设置，弹出输入密码
 						new AntiTheftDialog(HomeActivity.this, handler).enterPasswd(oldPasswd);
 					}
+				}
+				
+				// 高级工具
+				if(7 == position){
+					Intent intent = new Intent(HomeActivity.this,SeniorToolsActivity.class);
+					
+					startActivity(intent);
+				}
+				
+				// 进入 设置中心
+				if (8 == position) {
+					Intent intent = new Intent(HomeActivity.this,SettingActivity.class);
+
+					startActivity(intent);
 				}
 			}
 		});

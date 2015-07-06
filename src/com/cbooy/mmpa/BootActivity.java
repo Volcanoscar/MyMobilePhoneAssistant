@@ -1,5 +1,8 @@
 package com.cbooy.mmpa;
 
+import java.io.File;
+import java.io.IOException;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -18,6 +21,7 @@ import com.cbooy.mmpa.utils.DialogUtil;
 import com.cbooy.mmpa.utils.HttpUtil;
 import com.cbooy.mmpa.utils.JsonForObjectConverter;
 import com.cbooy.mmpa.utils.PackageManagerUtil;
+import com.cbooy.mmpa.utils.SearchPhotoNumberUtil;
 import com.cbooy.mmpa.utils.StaticDatas;
 
 @SuppressLint("HandlerLeak")
@@ -109,6 +113,13 @@ public class BootActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.boot_activity);
+		
+		// 复制数据
+		try {
+			SearchPhotoNumberUtil.copyDBFiles(getAssets().open("address.db"), new File(getFilesDir(),"address.db"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		// 初始化View
 		initViews();

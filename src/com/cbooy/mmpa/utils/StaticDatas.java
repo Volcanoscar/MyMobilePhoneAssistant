@@ -70,6 +70,12 @@ public class StaticDatas {
 	// com.cbooy.mmpa.service.GPSMonitorService 日志 TAG 
 	public final static String GPSMONITORSERVICE_LOG_TAG = "GPSMonitorService";
 	
+	// com.cbooy.mmpa.activity.seniortools.SearchPhotoNumberLocal 日志 TAG 
+	public final static String SEARCHPHOTONUMBERLOCAL_LOG_TAG = "SearchPhotoNumberLocal";
+	
+	// com.cbooy.mmpa.utils.SearchPhotoNumberUtil 日志 TAG 
+	public final static String SEARCHPHOTONUMBERUTIL_LOG_TAG = "SearchPhotoNumberUtil";
+	
 	// 设置安全号码的 标签
 	public final static String CONFIG_SAFE_PHONE = "bind_phone";
 	
