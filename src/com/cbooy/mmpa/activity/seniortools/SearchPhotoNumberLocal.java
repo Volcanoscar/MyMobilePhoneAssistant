@@ -32,8 +32,6 @@ public class SearchPhotoNumberLocal extends Activity implements OnClickListener{
 	
 	private TextView tvShowInfo;
 	
-	private String path = null;
-	
 	private TextView cleanNum;
 	
 	private Vibrator vibrator; 
@@ -81,7 +79,7 @@ public class SearchPhotoNumberLocal extends Activity implements OnClickListener{
 				
 				if(String.valueOf(s).trim().length() >= 3){
 					
-					new SearchPhotoNumberUtil().searchLocation(path, String.valueOf(s),new AddressHandlerCallBack(){
+					new SearchPhotoNumberUtil().searchLocation(String.valueOf(s),new AddressHandlerCallBack(){
 
 						@Override
 						public void call(String address) {
@@ -108,8 +106,6 @@ public class SearchPhotoNumberLocal extends Activity implements OnClickListener{
 		
 		btnSearch.setOnClickListener(this);
 		
-		path = new StringBuilder(this.getFilesDir().getAbsolutePath()).append("/address.db").toString();
-		
 		vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE); 
 	}
 
@@ -122,7 +118,7 @@ public class SearchPhotoNumberLocal extends Activity implements OnClickListener{
 			if(!TextUtils.isEmpty(num)){
 				//Log.i(StaticDatas.SEARCHPHOTONUMBERLOCAL_LOG_TAG, "search num is " + num);
 				
-				new SearchPhotoNumberUtil().searchLocation(path, num,new AddressHandlerCallBack(){
+				new SearchPhotoNumberUtil().searchLocation(num,new AddressHandlerCallBack(){
 
 					@Override
 					public void call(String address) {

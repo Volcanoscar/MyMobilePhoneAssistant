@@ -23,4 +23,13 @@
         cbooy:click_on="开启自动更新"
         cbooy:title="设置是否自动更新" />
 
+    <com.cbooy.mmpa.activity.views.SettingItemView
+        android:id="@+id/listen_call_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        cbooy:click_off="取消来电归属地显示"
+        cbooy:click_on="开启来电归属地显示"
+        cbooy:title="设置是否监听来电归属地显示" />
+
 </LinearLayout>

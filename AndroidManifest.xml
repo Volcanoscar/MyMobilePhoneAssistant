@@ -77,6 +77,9 @@
         </receiver>
 		
         <service android:name="com.cbooy.mmpa.service.GPSMonitorService"/>
+        
+        <service android:name="com.cbooy.mmpa.service.AddressService"/>
+        
         <uses-library android:name="android.test.runner" />
     </application>
 </manifest>

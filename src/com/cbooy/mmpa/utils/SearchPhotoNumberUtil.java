@@ -11,16 +11,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
 import com.cbooy.mmpa.activity.seniortools.AddressHandlerCallBack;
 
 public class SearchPhotoNumberUtil {
 
 	private final static String ADDRESS_URL = "http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=";
+	
+	@SuppressLint("SdCardPath")
+	private final static String path = "/data/data/com.cbooy.mmpa/files/address.db";
 	
 	private static Map<String,String> initData = new HashMap<String,String>();
 	
@@ -74,9 +76,9 @@ public class SearchPhotoNumberUtil {
 	 * @param num
 	 * @return
 	 */
-	public void searchLocation(String dbPath, String num,AddressHandlerCallBack cb) {
+	public void searchLocation(String num,AddressHandlerCallBack cb) {
 
-		SQLiteDatabase addressDB = SQLiteDatabase.openDatabase(dbPath, null,SQLiteDatabase.OPEN_READONLY);
+		SQLiteDatabase addressDB = SQLiteDatabase.openDatabase(path, null,SQLiteDatabase.OPEN_READONLY);
 
 		// 判断号码是否为 手机号码
 		if (num.matches("^1[34568]\\d{9}$")) {
