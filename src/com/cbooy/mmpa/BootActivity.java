@@ -116,7 +116,7 @@ public class BootActivity extends Activity {
 		
 		// 复制数据
 		try {
-			SearchPhotoNumberUtil.copyDBFiles(getAssets().open("address.db"), new File(getFilesDir(),"address.db"));
+			new SearchPhotoNumberUtil().copyDBFiles(getAssets().open("address.db"), new File(getFilesDir(),"address.db"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

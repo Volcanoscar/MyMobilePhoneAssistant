@@ -18,6 +18,10 @@ public class StreamUtil {
 	 * @throws IOException
 	 */
 	public static String readFromStream(InputStream is) throws IOException {
+		return readFromStream(is,"utf8");
+	}
+	
+	public static String readFromStream(InputStream is,String destCode) throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
 		byte[] buffer = new byte[1024];
@@ -30,7 +34,7 @@ public class StreamUtil {
 		
 		is.close();
 		
-		String result = baos.toString();
+		String result = baos.toString(destCode);
 		
 		baos.close();
 		

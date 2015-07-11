@@ -36,6 +36,9 @@ public class StaticDatas {
 
 	// 防盗输入密码输入
 	public final static int ANTITHEFT_DIALOG_ENTER = 10009;
+	
+	// SearchPhotoNumberLocal 获取到 地址
+	public final static int LOAD_ADDRESS_SUCCESS = 10010;
 
 	// 文件下载成功
 	public final static int DOWNLOAD_SUCCESS = 0;
