@@ -34,7 +34,7 @@ public class HomeActivity extends Activity {
 
 			// 确认
 			if (msg.what == StaticDatas.ANTITHEFT_DIALOG_CONFIRM) {
-				boolean isConfirm = (boolean) msg.obj;
+				boolean isConfirm = (Boolean) msg.obj;
 
 				if (isConfirm) {
 					goAntiTheftActivity();
@@ -43,7 +43,7 @@ public class HomeActivity extends Activity {
 
 			// 输入
 			if (msg.what == StaticDatas.ANTITHEFT_DIALOG_ENTER) {
-				boolean isEnter = (boolean) msg.obj;
+				boolean isEnter = (Boolean) msg.obj;
 
 				if (isEnter) {
 					goAntiTheftActivity();

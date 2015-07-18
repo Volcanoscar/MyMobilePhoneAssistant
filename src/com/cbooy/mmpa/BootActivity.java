@@ -69,7 +69,7 @@ public class BootActivity extends Activity {
 				// 是否下载
 				case StaticDatas.IS_DOWNLOAD_NEW_VERSION:
 					
-					boolean isUpdate = (boolean) msg.obj;
+					boolean isUpdate = (Boolean) msg.obj;
 					
 					Log.i(StaticDatas.BOOTACTIVITY_LOG_TAG, "是否下载的 判断 " + isUpdate);
 					
