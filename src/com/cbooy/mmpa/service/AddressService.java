@@ -60,6 +60,4 @@ public class AddressService extends Service {
 	public void onDestroy() {
 		super.onDestroy();
 	}
-	
-	
 }
