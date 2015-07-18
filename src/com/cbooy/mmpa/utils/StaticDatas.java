@@ -99,4 +99,7 @@ public class StaticDatas {
 	
 	// 位置信息
 	public final static String CONFIG_LOCATION_INFO = "local_location";
+	
+	// 当前吐司的展示index
+	public final static String TOAST_SHOW_INDEX = "toast_show_item_index";
 }

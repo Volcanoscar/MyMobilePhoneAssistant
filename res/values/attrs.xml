@@ -4,6 +4,7 @@
         <attr name="title" format="string" />
         <attr name="click_on" format="string" />
         <attr name="click_off" format="string" />
+        <attr name="desc" format="string" />
         <attr name="show_num" format="string" />
     </declare-styleable>
 </resources>

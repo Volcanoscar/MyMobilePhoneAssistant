@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.cbooy.mmpa.R;
 import com.cbooy.mmpa.activity.seniortools.AddressHandlerCallBack;
 import com.cbooy.mmpa.utils.SearchPhotoNumberUtil;
+import com.cbooy.mmpa.utils.StaticDatas;
 
 public class AddressService extends Service {
 	
@@ -90,8 +91,10 @@ public class AddressService extends Service {
 		
 		TextView tvShowAddress = (TextView) toastView.findViewById(R.id.tv_show_address);
 		
-		SharedPreferences sp = getSharedPreferences("config", MODE_PRIVATE);
-		toastView.setBackgroundResource(ids[sp.getInt("which", 0)]);
+		SharedPreferences sp = this.getSharedPreferences(StaticDatas.SP_CONFIG_FILE, MODE_PRIVATE);
+		
+		toastView.setBackgroundResource(ids[sp.getInt(StaticDatas.TOAST_SHOW_INDEX, 0)]);
+		
 	    tvShowAddress.setText(text);
 		
 		//窗体的参数就设置好了

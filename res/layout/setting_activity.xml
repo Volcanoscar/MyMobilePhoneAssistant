@@ -31,5 +31,12 @@
         cbooy:click_off="取消来电归属地显示"
         cbooy:click_on="开启来电归属地显示"
         cbooy:title="设置是否监听来电归属地显示" />
-
+	
+    <com.cbooy.mmpa.activity.views.ToastShowView
+        android:id="@+id/toast_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        cbooy:desc="半透明"
+        cbooy:title="设置来电显示风格"/>
 </LinearLayout>
