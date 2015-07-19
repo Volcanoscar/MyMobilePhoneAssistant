@@ -9,7 +9,6 @@
         android:id="@+id/img_func_list_item"
         android:layout_width="60dip"
         android:layout_height="60dip" 
-        android:src="@drawable/netmanager"
         android:contentDescription="@string/func_list_item_img"/>
 	
     <com.cbooy.mmpa.activity.views.FocusedTextView 
@@ -18,6 +17,5 @@
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:textSize="16sp"
-        android:text="网络设置"
         />
 </LinearLayout>
