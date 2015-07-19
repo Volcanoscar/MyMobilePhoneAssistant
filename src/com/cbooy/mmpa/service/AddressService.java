@@ -6,12 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -34,6 +38,11 @@ public class AddressService extends Service {
 	
 	private int [] ids = null;
 	
+	private SharedPreferences sp;
+	
+	//窗体参数
+	private WindowManager.LayoutParams params = null;
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -44,6 +53,9 @@ public class AddressService extends Service {
 	}
 
 	private void initDatas() {
+		
+		params = new WindowManager.LayoutParams();
+		
 		tm.listen(phoneStateListener,  PhoneStateListener.LISTEN_CALL_STATE);
 		
 		IntentFilter filter = new IntentFilter();
@@ -57,6 +69,8 @@ public class AddressService extends Service {
 				R.drawable.call_locate_blue
 			    ,R.drawable.call_locate_gray,
 			    R.drawable.call_locate_green};
+
+		sp = getSharedPreferences(StaticDatas.SP_CONFIG_FILE, MODE_PRIVATE);		
 	}
 
 	private void initViews() {
@@ -70,18 +84,6 @@ public class AddressService extends Service {
 	}
 	
 	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		
-		// cancel : call in
-		tm.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
-		phoneStateListener = null;
-		
-		// cancel : call out
-		unregisterReceiver(phoneReceiver);
-	}
-
-	@Override
 	public IBinder onBind(Intent intent) {
 		return null;
 	}
@@ -91,23 +93,85 @@ public class AddressService extends Service {
 		
 		TextView tvShowAddress = (TextView) toastView.findViewById(R.id.tv_show_address);
 		
-		SharedPreferences sp = this.getSharedPreferences(StaticDatas.SP_CONFIG_FILE, MODE_PRIVATE);
-		
 		toastView.setBackgroundResource(ids[sp.getInt(StaticDatas.TOAST_SHOW_INDEX, 0)]);
 		
 	    tvShowAddress.setText(text);
 		
-		//窗体的参数就设置好了
-		 WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+	    Log.i("TAG", "归属地" + text);
 		 
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        
         params.width = WindowManager.LayoutParams.WRAP_CONTENT;
         
+        params.gravity = Gravity.TOP + Gravity.LEFT;
+        
+        params.x = (int) sp.getFloat(StaticDatas.SELF_TOAST_X, 100.0f);
+        
+        params.y = (int) sp.getFloat(StaticDatas.SELF_TOAST_Y, 100.0f);
+        
+		toastView.setOnTouchListener(new OnTouchListener() {
+			int initX = 0;
+			int initY = 0;
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					initX = (int) event.getRawX();
+					initY = (int) event.getRawY();
+					
+					Log.i("TAG_DOWN", initX +"==="+initY);
+					break;
+				case MotionEvent.ACTION_MOVE:
+					int newX = (int) event.getRawX();
+					
+					int newY = (int) event.getRawY();
+					
+					Log.i("TAG_MOVE", newX +"==="+newY);
+					
+					int dx = newX - initX;
+					
+					int dy = newY - initY;
+					
+					Log.i("TAG_D", dx +"==="+dy);
+					
+					params.x += dx;
+					
+					params.y += dy;
+					
+					wm.updateViewLayout(toastView, params);
+					
+					initX = (int) event.getRawX();
+					
+					initY = (int) event.getRawY();
+					
+					break;
+				case MotionEvent.ACTION_UP:
+					Editor editor = sp.edit();
+					editor.putFloat(StaticDatas.SELF_TOAST_X, event.getRawX());
+					editor.putFloat(StaticDatas.SELF_TOAST_Y, event.getRawY());
+					editor.commit();
+					
+					Log.i("TAG_UP", event.getRawX() +"==="+event.getRawY());
+					break;
+				default:
+					break;
+				}
+				
+				return false;
+			}
+		});
+        
+		// WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                 | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+        
         params.format = PixelFormat.TRANSLUCENT;
-        params.type = WindowManager.LayoutParams.TYPE_TOAST;
+        
+        // android系统里面具有电话优先级的一种窗体类型需要加加权限
+        params.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
+        //params.type = WindowManager.LayoutParams.TYPE_TOAST;
         
         wm.addView(toastView, params);
 	}
@@ -117,42 +181,54 @@ public class AddressService extends Service {
 				new AddressHandlerCallBack() {
 					@Override
 					public void call(String address) {
-						//Toast.makeText(AddressService.this, address,Toast.LENGTH_LONG).show();
 						toast(address);
 					}
 				});
 	}
 	
-	private class PhoneCalloutReceiver extends BroadcastReceiver{
+	private class PhoneCalloutReceiver extends BroadcastReceiver {
+
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String num = getResultData();
-			Log.i("TAG", "call out ... "+num);
 			showAddress(num);
 		}
 	}
 	
-	private class PhoneListener extends PhoneStateListener{
+	private class PhoneListener extends PhoneStateListener {
+		
 		@Override
 		public void onCallStateChanged(int state, String incomingNumber) {
 			super.onCallStateChanged(state, incomingNumber);
-			
+
 			switch (state) {
 			case TelephonyManager.CALL_STATE_RINGING:
-				
+
 				showAddress(incomingNumber);
-				
+
 				break;
 			case TelephonyManager.CALL_STATE_IDLE:
-				
-				if(toastView != null){
+
+				if (toastView != null) {
 					wm.removeView(toastView);
 				}
-				
+
 				break;
 			default:
 				break;
 			}
 		}
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		
+		// cancel : call in
+		tm.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+		phoneStateListener = null;
+		
+		// cancel : call out
+		unregisterReceiver(phoneReceiver);
 	}
 }

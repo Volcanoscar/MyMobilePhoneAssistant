@@ -56,7 +56,7 @@ public class StaticDatas {
 	public final static String BASESETUPACTIVITY_LOG_TAG = "BaseSetupActivity";
 
 	// com.cbooy.mmpa.receiver.BootCompletedReceiver 日志 TAG
-	public final static String BootCompletedReceiver_LOG_TAG = "BootCompletedReceiver";
+	public final static String BOOTCOMPLETEDRECEIVER_LOG_TAG = "BootCompletedReceiver";
 
 	// com.cbooy.mmpa.utils.ContactsHelperUtil 日志 TAG
 	public final static String CONTACTSHELPERUTIL_LOG_TAG = "ContactsHelperUtil";
@@ -102,4 +102,10 @@ public class StaticDatas {
 	
 	// 当前吐司的展示index
 	public final static String TOAST_SHOW_INDEX = "toast_show_item_index";
+	
+	// 定义吐司展示的X坐标
+	public final static String SELF_TOAST_X = "self_toast_x";
+	
+	// 定义吐司展示的Y坐标
+	public final static String SELF_TOAST_Y = "self_toast_y";
 }

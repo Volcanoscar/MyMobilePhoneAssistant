@@ -17,8 +17,14 @@ public class StreamUtil {
 	 * @return String 返回的字符串
 	 * @throws IOException
 	 */
-	public static String readFromStream(InputStream is) throws IOException {
-		return readFromStream(is,"utf8");
+	public static String readFromStream(InputStream is){
+		try {
+			return readFromStream(is,"utf8");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	public static String readFromStream(InputStream is,String destCode) throws IOException {

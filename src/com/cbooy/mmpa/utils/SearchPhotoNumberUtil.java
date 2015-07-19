@@ -4,27 +4,35 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.util.Log;
+
 import com.cbooy.mmpa.activity.seniortools.AddressHandlerCallBack;
 
 public class SearchPhotoNumberUtil {
 
-	private final static String ADDRESS_URL = "http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=";
-	
 	@SuppressLint("SdCardPath")
 	private final static String path = "/data/data/com.cbooy.mmpa/files/address.db";
 	
 	private static Map<String,String> initData = new HashMap<String,String>();
+	
+	private SQLiteDatabase addressDB = null;
+	
+	private AddressHandlerCallBack addressCallback;
 	
 	static{
 		initData.put("110", "报警电话");
@@ -78,8 +86,10 @@ public class SearchPhotoNumberUtil {
 	 */
 	public void searchLocation(String num,AddressHandlerCallBack cb) {
 
-		SQLiteDatabase addressDB = SQLiteDatabase.openDatabase(path, null,SQLiteDatabase.OPEN_READONLY);
-
+		if(addressDB == null){
+			addressDB = SQLiteDatabase.openDatabase(path, null,SQLiteDatabase.OPEN_READONLY);
+		}
+		
 		// 判断号码是否为 手机号码
 		if (num.matches("^1[34568]\\d{9}$")) {
 
@@ -88,8 +98,11 @@ public class SearchPhotoNumberUtil {
 			if (cursor.getCount() == 1 && cursor.moveToNext()) {
 				cb.call(cursor.getString(0));
 			}else{
-				// 请求网络进行获取
-				new Thread(new AccessNetworkForAddress(num, cb)) {}.start();
+				
+				addressCallback = cb;
+				
+				// 请求网络进行获取,num
+				new AccessAddressTask().execute(num);
 			}
 			
 			cursor.close();
@@ -123,55 +136,78 @@ public class SearchPhotoNumberUtil {
 			cb.call("暂未存储");
 		}
 	}
+	
+	class AccessAddressTask extends AsyncTask<String,Void,String>{
 
-	class AccessNetworkForAddress implements Runnable {
-
-		private String num;
-
-		private AddressHandlerCallBack cb;
-
-		public AccessNetworkForAddress(String num,AddressHandlerCallBack cb) {
-			this.num = num;
-			this.cb = cb;
+		@Override
+		protected String doInBackground(String... params) {
+			
+			InputStream ins = httpGetForAddress(params[0]);
+			
+			return parseAddress(ins);
 		}
 
 		@Override
-		public void run() {
-
-			HttpURLConnection conn = null;
-
-			URL url = null;
-
-			try {
-				url = new URL(ADDRESS_URL + num);
-
-				conn = (HttpURLConnection) url.openConnection();
-
-				conn.setConnectTimeout(5 * 1000);
-
-				conn.setRequestMethod("GET");
-
-				int code = conn.getResponseCode();
-
-				if (code / 200 == 1) {
-					String val = StreamUtil.readFromStream(conn.getInputStream(),"GBK");
-
-					if (val != null && !"".equals(val)) {
-						Matcher m = Pattern.compile("carrier:\'(.*?)\'").matcher(val);
-						if(m.find()){
-							cb.call(m.group(1));
-						}
-					}
-					
-					//cb.call();
-				}
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}finally {
-				conn.disconnect();
-			}
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+			
+			addressCallback.call(result);
 		}
+	}
+	
+	private InputStream httpGetForAddress(String num){
+		try {
+			
+			StringBuilder sbf = new StringBuilder();
+			
+			sbf.append("http://apis.baidu.com/apistore/mobilephoneservice/mobilephone")
+				.append("?")
+				.append("tel=")
+				.append(num.trim());
+			
+			URL url = new URL(sbf.toString());
+			
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+			conn.setConnectTimeout(5 * 1000);
+
+			conn.setRequestMethod("GET");
+			
+			conn.setRequestProperty("apikey",  "bb5054b69475c3188d69d1f376baf1e4");
+
+			conn.connect();
+			
+			if (conn.getResponseCode() / 200 == 1) {
+				return conn.getInputStream();
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	private String parseAddress(InputStream ins){
+		
+		String res = StreamUtil.readFromStream(ins);
+		
+		try {
+			JSONObject jsonObj = new JSONObject(res);
+			
+			if("success".equals(jsonObj.getString("errMsg").trim())){
+				
+				JSONObject temp = jsonObj.getJSONObject("retData");
+				
+				return URLDecoder.decode(temp.getString("carrier"), "UTF-8");
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }
