@@ -9,12 +9,15 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -39,6 +42,8 @@ public class AddressService extends Service {
 	private int [] ids = null;
 	
 	private SharedPreferences sp;
+	
+	private long[] clickTimes = new long[2];
 	
 	//窗体参数
 	private WindowManager.LayoutParams params = null;
@@ -97,8 +102,6 @@ public class AddressService extends Service {
 		
 	    tvShowAddress.setText(text);
 		
-	    Log.i("TAG", "归属地" + text);
-		 
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         
         params.width = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -121,20 +124,15 @@ public class AddressService extends Service {
 					initX = (int) event.getRawX();
 					initY = (int) event.getRawY();
 					
-					Log.i("TAG_DOWN", initX +"==="+initY);
 					break;
 				case MotionEvent.ACTION_MOVE:
 					int newX = (int) event.getRawX();
 					
 					int newY = (int) event.getRawY();
 					
-					Log.i("TAG_MOVE", newX +"==="+newY);
-					
 					int dx = newX - initX;
 					
 					int dy = newY - initY;
-					
-					Log.i("TAG_D", dx +"==="+dy);
 					
 					params.x += dx;
 					
@@ -153,7 +151,6 @@ public class AddressService extends Service {
 					editor.putFloat(StaticDatas.SELF_TOAST_Y, event.getRawY());
 					editor.commit();
 					
-					Log.i("TAG_UP", event.getRawX() +"==="+event.getRawY());
 					break;
 				default:
 					break;
@@ -162,6 +159,31 @@ public class AddressService extends Service {
 				return false;
 			}
 		});
+		
+		toastView.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				
+				System.arraycopy(clickTimes, 1, clickTimes, 0, clickTimes.length - 1);
+				
+				clickTimes[clickTimes.length - 1] = SystemClock.uptimeMillis();
+
+				if(clickTimes[0] >= (SystemClock.uptimeMillis() - 500)){
+					
+					DisplayMetrics displayMetrics = new DisplayMetrics();
+					
+					wm.getDefaultDisplay().getMetrics(displayMetrics);
+					
+					params.x = displayMetrics.widthPixels/2 - toastView.getWidth()/2;
+					
+					wm.updateViewLayout(toastView, params);
+					
+					Editor editor = sp.edit();
+					editor.putFloat(StaticDatas.SELF_TOAST_X, params.x);
+					editor.commit();
+				}
+			}});
         
 		// WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
@@ -181,6 +203,8 @@ public class AddressService extends Service {
 				new AddressHandlerCallBack() {
 					@Override
 					public void call(String address) {
+						Log.i("TAG", "address is " + address);
+						
 						toast(address);
 					}
 				});
@@ -199,11 +223,9 @@ public class AddressService extends Service {
 		
 		@Override
 		public void onCallStateChanged(int state, String incomingNumber) {
-			super.onCallStateChanged(state, incomingNumber);
-
 			switch (state) {
 			case TelephonyManager.CALL_STATE_RINGING:
-
+				
 				showAddress(incomingNumber);
 
 				break;

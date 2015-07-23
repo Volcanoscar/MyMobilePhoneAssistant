@@ -115,20 +115,31 @@ public class HomeActivity extends Activity {
 				}
 			}
 			
+			// 通讯卫士
+			if (1 == position) {
+				gotoPage(NumSafeListActivity.class);
+			}
+			
 			// 高级工具
 			if(7 == position){
-				Intent intent = new Intent(HomeActivity.this,SeniorToolsActivity.class);
-				
-				startActivity(intent);
+				gotoPage(SeniorToolsActivity.class);
 			}
 			
 			// 进入 设置中心
 			if (8 == position) {
-				Intent intent = new Intent(HomeActivity.this,SettingActivity.class);
-
-				startActivity(intent);
+				gotoPage(SettingActivity.class);
 			}
 		}
+	}
+	
+	/**
+	 * 
+	 * @param clazz
+	 */
+	private void gotoPage(Class clazz){
+		Intent intent = new Intent(HomeActivity.this,clazz);
+
+		startActivity(intent);
 	}
 	
 	// 初始化数据
