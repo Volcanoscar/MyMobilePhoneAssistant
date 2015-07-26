@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -40,7 +39,6 @@ public abstract class BaseSetupActivity extends Activity {
 			 */
 			@Override
 			public boolean onFling(MotionEvent e1, MotionEvent e2,float velocityX, float velocityY) {
-				Log.i(StaticDatas.BASESETUPACTIVITY_LOG_TAG, "event touch ..." + e1.getRawX() + "\t" + e2.getRawX());
 				// 屏蔽滑动缓慢
 				// if (Math.abs(velocityX) < 200) {
 				// return true;
@@ -53,13 +51,11 @@ public abstract class BaseSetupActivity extends Activity {
 				
 				// 向左滑动 下一页
 				if (e1.getRawX() - e2.getRawX() > 200) {
-					Log.i(StaticDatas.BASESETUPACTIVITY_LOG_TAG, "下一页");
 					nextStep();
 				}
 				
 				// 向右滑动 上一页
 				if (e2.getRawX() - e1.getRawX() > 200) {
-					Log.i(StaticDatas.BASESETUPACTIVITY_LOG_TAG, "上一页");
 					preStep();
 				}
 				

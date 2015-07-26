@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -70,8 +69,6 @@ public class BootActivity extends Activity {
 				case StaticDatas.IS_DOWNLOAD_NEW_VERSION:
 					
 					boolean isUpdate = (Boolean) msg.obj;
-					
-					Log.i(StaticDatas.BOOTACTIVITY_LOG_TAG, "是否下载的 判断 " + isUpdate);
 					
 					if(isUpdate){
 						new HttpUtil(BootActivity.this,handler).downloadFiles(updateVersioInfo.getUpdate_url(),tvDisplayDownloadProcess);

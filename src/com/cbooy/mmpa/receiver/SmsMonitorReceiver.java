@@ -8,7 +8,6 @@ import android.media.MediaPlayer;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.cbooy.mmpa.R;
 import com.cbooy.mmpa.service.GPSMonitorService;
@@ -47,8 +46,6 @@ public class SmsMonitorReceiver extends BroadcastReceiver {
 				//得到手机的GPS
 				if("#*location*#".equals(smsBody)){
 					
-					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "短信体 : " + smsBody);
-					
 					// 开启 获取位置的 服务
 					Intent serviceIntent = new Intent(context,GPSMonitorService.class);
 					
@@ -66,15 +63,11 @@ public class SmsMonitorReceiver extends BroadcastReceiver {
 							);
 					}
 					
-					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "得到手机的GPS" + location);
-					
 					abortBroadcast();
 				}
 				
 				//播放报警影音
 				if("#*alarm*#".equals(smsBody)){
-					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "播放报警影音");
-					
 					MediaPlayer mp = MediaPlayer.create(context, R.raw.ylzs);
 					
 					// 设置循环播放
@@ -91,15 +84,11 @@ public class SmsMonitorReceiver extends BroadcastReceiver {
 				
 				//远程清除数据
 				if("#*wipedata*#".equals(smsBody)){
-					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "远程清除数据");
-					
 					abortBroadcast();
 				}
 				
 				//远程锁屏
 				if("#*lockscreen*#".equals(smsBody)){
-					Log.i(StaticDatas.SMSMONITORRECEIVER_LOG_TAG, "远程锁屏");
-					
 					LockScreenUtil.inst(context).lockScreen();
 					
 					abortBroadcast();

@@ -15,6 +15,7 @@ import com.cbooy.mmpa.R;
 import com.cbooy.mmpa.activity.views.SettingItemView;
 import com.cbooy.mmpa.activity.views.ToastShowView;
 import com.cbooy.mmpa.service.AddressService;
+import com.cbooy.mmpa.service.BlackNumberMonitorService;
 import com.cbooy.mmpa.utils.ServicesUtil;
 import com.cbooy.mmpa.utils.StaticDatas;
 
@@ -24,9 +25,34 @@ public class SettingActivity extends Activity {
 	
 	private SettingItemView listenCallAddress;
 	
+	private SettingItemView blackNumberSetting;
+	
 	private ToastShowView toastView;
 	
 	private SharedPreferences sp;
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		// 判断 号码归属地的服务是否开启
+		boolean isServiceRun = ServicesUtil.isServiceRun(this, AddressService.class.getName());
+		
+		if(isServiceRun){
+			listenCallAddress.setCheckd(true);
+		}else{
+			listenCallAddress.setCheckd(false);
+		}
+		
+		// 判断 黑名单 监控服务是否开启
+		boolean isBlackListServiceRun = ServicesUtil.isServiceRun(this, BlackNumberMonitorService.class.getName());
+		
+		if(isBlackListServiceRun){
+			blackNumberSetting.setCheckd(true);
+		}else{
+			blackNumberSetting.setCheckd(false);
+		}
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +64,35 @@ public class SettingActivity extends Activity {
 		
 		final Editor editor = sp.edit();
 		
+		// 设置开启检查更新
 		settingView = (SettingItemView) this.findViewById(R.id.item_setting);
 		
+		// 号码归属地
 		listenCallAddress = (SettingItemView) this.findViewById(R.id.listen_call_address);
 		
-		final String [] items = {"半透明","活力橙","卫士蓝","金属灰","苹果绿"};
+		// 设置黑名单
+		blackNumberSetting = (SettingItemView) this.findViewById(R.id.set_black_num_list);
+		blackNumberSetting.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				Intent intent = new Intent(SettingActivity.this,BlackNumberMonitorService.class);
+				
+				if(blackNumberSetting.isChecked()){
+					blackNumberSetting.setCheckd(false);
+					stopService(intent);
+				}else{
+					blackNumberSetting.setCheckd(true);
+					startService(intent);
+				}
+			}
+		});
 		
 		// 设置土司 
 		toastView = (ToastShowView) this.findViewById(R.id.toast_show);
+		
+		final String [] items = {"半透明","活力橙","卫士蓝","金属灰","苹果绿"};
 		
 		toastView.setOnClickListener(new OnClickListener(){
 			
@@ -80,14 +127,6 @@ public class SettingActivity extends Activity {
 			}});
 		
 		final Intent showAddress = new Intent(this,AddressService.class);
-		
-		boolean isServiceRun = ServicesUtil.isServiceRun(this, AddressService.class.getName());
-		
-		if(isServiceRun){
-			listenCallAddress.setCheckd(true);
-		}else{
-			listenCallAddress.setCheckd(false);
-		}
 		
 		listenCallAddress.setOnClickListener(new OnClickListener() {
 			

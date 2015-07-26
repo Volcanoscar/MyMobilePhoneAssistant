@@ -1,14 +1,11 @@
 package com.cbooy.mmpa.service;
 
-import com.cbooy.mmpa.utils.StaticDatas;
-
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.LocationManager;
 import android.os.IBinder;
-import android.util.Log;
 
 public class GPSMonitorService extends Service {
 
@@ -22,8 +19,6 @@ public class GPSMonitorService extends Service {
 
 	@Override
 	public void onCreate() {
-		
-		Log.i(StaticDatas.GPSMONITORSERVICE_LOG_TAG, "GPSMonitorService .. onCreate");
 		
 		super.onCreate();
 

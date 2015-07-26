@@ -18,7 +18,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,8 +52,6 @@ public class HttpUtil {
 			
 			String fileName = Environment.getExternalStorageDirectory().getAbsolutePath() + downloadUrl.substring(downloadUrl.lastIndexOf("/"));
 			
-			Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "解析出来的文件名字为: " + fileName);
-			
 			FinalHttp httpFinal = new FinalHttp();
 			
 			httpFinal.download(downloadUrl, fileName, new AjaxCallBack<File>() {
@@ -62,7 +59,6 @@ public class HttpUtil {
 				@Override
 				public void onFailure(Throwable t, int errorNo, String strMsg) {
 					super.onFailure(t, errorNo, strMsg);
-					Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "下载失败" + t.getMessage());
 					Toast.makeText(activity, "下载失败", Toast.LENGTH_SHORT).show();
 				}
 
@@ -133,8 +129,6 @@ public class HttpUtil {
 						// 获取 输入流 并转换成字符串
 						String res = StreamUtil.readFromStream(conn.getInputStream());
 						
-						Log.i(StaticDatas.HTTPUTIL_LOG_TAG, "联网检查update成功,返回结果为 " + res);
-						
 						JSONObject jsObj = new JSONObject(res);
 						
 						if(! oldVersion.equals(jsObj.getString("version"))){
@@ -154,17 +148,14 @@ public class HttpUtil {
 					// URL错误
 					msg.what = StaticDatas.URL_ERROR;
 					
-					Log.e(StaticDatas.HTTPUTIL_LOG_TAG, "URL出错，异常信息为" + e.getMessage());
 				} catch (IOException e) {
 					// 网络连接出错
 					msg.what = StaticDatas.URL_CONNECTION_ERROR;
 					
-					Log.e(StaticDatas.HTTPUTIL_LOG_TAG, "URL链接出错，异常信息为" + e.getMessage());
 				} catch (JSONException e) {
 					// JSON转换出错
 					msg.what = StaticDatas.JSON_CONVERTOR_ERROR;
 					
-					Log.e(StaticDatas.HTTPUTIL_LOG_TAG, "JSON转换出错，异常信息为" + e.getMessage());
 				}finally{
 					
 					// 在此计算耗时
@@ -172,11 +163,8 @@ public class HttpUtil {
 					
 					long dtime = current - start;
 					
-					Log.i(StaticDatas.BOOTACTIVITY_LOG_TAG, "时间差" + String.valueOf(dtime));
-					
 					if(dtime < 2000){
 						SystemClock.sleep(2000 - dtime);
-						Log.i(StaticDatas.BOOTACTIVITY_LOG_TAG, "睡" + String.valueOf(2000 - dtime));
 					}
 					
 					

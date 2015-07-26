@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/ll_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#8866ff00"
-        android:gravity="center"
-        android:text="通讯卫士"
-        android:textColor="#000000"
-        android:textSize="25sp" />
+        android:layout_height="wrap_content">
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#8866ff00"
+            android:gravity="center"
+            android:text="黑名单设置"
+            android:textColor="#000000"
+            android:textSize="35sp" />
 
+        <Button
+            android:id="@+id/btn_add_black_num_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:text="添加" />
+    </RelativeLayout>
 
-</LinearLayout>
+    <ListView
+        android:id="@+id/lv_num_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll_title" >
+    </ListView>
+
+</RelativeLayout>

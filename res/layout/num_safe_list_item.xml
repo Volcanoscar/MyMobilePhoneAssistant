@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_call" />
+
+    <LinearLayout
+        android:id="@+id/ll_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_icon"
+        android:layout_marginLeft="5dip"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="电话号码"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="禁用模式"
+            android:textColor="#88000000"
+            android:textSize="15sp" />
+    </LinearLayout>
+	
+    <ImageView
+        android:id="@+id/iv_del"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/black_num_delete_selector"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

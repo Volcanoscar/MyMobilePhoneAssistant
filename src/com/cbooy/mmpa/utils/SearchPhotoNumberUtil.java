@@ -19,7 +19,6 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.cbooy.mmpa.activity.seniortools.AddressHandlerCallBack;
 
@@ -48,10 +47,7 @@ public class SearchPhotoNumberUtil {
 	 */
 	public void copyDBFiles(InputStream src, File dest) {
 		if (dest.exists() && dest.length() > 0) {
-			Log.i(StaticDatas.SEARCHPHOTONUMBERUTIL_LOG_TAG, "文件已存在");
 		} else {
-
-			Log.i(StaticDatas.SEARCHPHOTONUMBERUTIL_LOG_TAG, "拷贝数据库...");
 
 			FileOutputStream fos = null;
 

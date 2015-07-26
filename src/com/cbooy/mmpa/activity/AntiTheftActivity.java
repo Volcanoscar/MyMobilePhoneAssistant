@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,15 +45,11 @@ public class AntiTheftActivity extends Activity {
 		} else {
 			String safePhone = sp.getString(StaticDatas.CONFIG_SAFE_PHONE, null);
 			
-			Log.i(StaticDatas.ANTITHEFTACTIVITY_LOG_TAG, "安全号码 : " + safePhone);
-			
 			if(! TextUtils.isEmpty(safePhone)){
 				tvSafePhone.setText(safePhone);
 			}
 			
 			boolean is_protected = sp.getBoolean(StaticDatas.CONFIG_IS_PROTECTED, false);
-			
-			Log.i(StaticDatas.ANTITHEFTACTIVITY_LOG_TAG, "是否开启保护 : " + is_protected);
 			
 			if(is_protected){
 				imageLock.setImageResource(R.drawable.lock);

@@ -13,7 +13,6 @@ import android.os.SystemClock;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -203,8 +202,6 @@ public class AddressService extends Service {
 				new AddressHandlerCallBack() {
 					@Override
 					public void call(String address) {
-						Log.i("TAG", "address is " + address);
-						
 						toast(address);
 					}
 				});

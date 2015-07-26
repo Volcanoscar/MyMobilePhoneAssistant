@@ -6,17 +6,15 @@ import com.cbooy.mmpa.model.NumBlackListPojo;
 
 public interface NumBlackListDao {
 	
-	public void add(NumBlackListPojo pojo);
+	public long add(NumBlackListPojo pojo);
 	
-	public void delete(int id);
+	public int delete(String num);
 	
-	public void update(NumBlackListPojo pojo);
-	
-	public NumBlackListPojo findOneById(int id);
+	public int update(NumBlackListPojo pojo);
 	
 	public NumBlackListPojo findOneByNum(String num);
 	
-	public List<NumBlackListPojo> finnAll();
+	public List<NumBlackListPojo> findAll();
 	
 	public boolean isNumExists(String num);
 }
