@@ -57,6 +57,11 @@ public class HomeActivity extends Activity {
 					goAntiTheftActivity();
 				}
 			}
+			
+			// 天气数据加载成功
+			if(msg.what == StaticDatas.WEATHER_LOAD_SUCCESS){
+				ftv.setText((String)msg.obj);
+			}
 		}
 	};
 
@@ -80,8 +85,7 @@ public class HomeActivity extends Activity {
 		// 九宫格显示View
 		gvFuncLists = (GridView) this.findViewById(R.id.gv_func_lists);
 
-		gvFuncLists.setAdapter(new HomePageLayoutAdapter(HomeActivity.this,
-				homePageViewItems));
+		gvFuncLists.setAdapter(new HomePageLayoutAdapter(HomeActivity.this,homePageViewItems));
 
 		gvFuncLists.setOnItemClickListener(new ItemClickListener());
 
@@ -91,7 +95,10 @@ public class HomeActivity extends Activity {
 
 					@Override
 					public void handler(String weatherInfos) {
-						ftv.setText(weatherInfos);
+						Message msg = Message.obtain();
+						msg.what = StaticDatas.WEATHER_LOAD_SUCCESS;
+						msg.obj = weatherInfos;
+						handler.sendMessage(msg);
 					}
 				});
 	}
@@ -136,7 +143,7 @@ public class HomeActivity extends Activity {
 	 * 
 	 * @param clazz
 	 */
-	private void gotoPage(Class clazz){
+	private void gotoPage(Class<?> clazz){
 		Intent intent = new Intent(HomeActivity.this,clazz);
 
 		startActivity(intent);

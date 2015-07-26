@@ -23,8 +23,6 @@ public class WeatherInfoUtil {
 	
 	private static String charsetName = "utf-8";
 	
-	private FlushWeatherInfoViewHandler flushWeatherInfo;
-	
 	public static WeatherInfoUtil build(){
 		return new WeatherInfoUtil();
 	}
@@ -35,10 +33,8 @@ public class WeatherInfoUtil {
 			throw new IllegalArgumentException("请求天气信息参数错误,不可为空");
 		}
 		
-		this.flushWeatherInfo = flushWeatherInfo;
-		
 		// 异步请求网络加载天气数据
-		new LoadWeatherInfoTask().execute(city);
+		new LoadWeatherInfoTask(flushWeatherInfo).execute(city);
 	}
 	
 	private WeatherInfo parseJSON(String json){
@@ -143,6 +139,12 @@ public class WeatherInfoUtil {
 	}
 	
 	private class LoadWeatherInfoTask extends AsyncTask<String,Void,WeatherInfo>{
+		
+		private FlushWeatherInfoViewHandler weatherInfo;
+		
+		public LoadWeatherInfoTask(FlushWeatherInfoViewHandler flushWeatherInfo) {
+			this.weatherInfo = flushWeatherInfo;
+		}
 
 		@Override
 		protected WeatherInfo doInBackground(String... params) {
@@ -156,7 +158,9 @@ public class WeatherInfoUtil {
 
 		@Override
 		protected void onPostExecute(WeatherInfo result) {
-			flushWeatherInfo.handler(result.toString());
+			if(result != null){
+				weatherInfo.handler(result.toString());
+			}
 		}
 	}
 }

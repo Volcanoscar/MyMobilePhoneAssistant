@@ -61,6 +61,11 @@ public class StaticDatas {
 	 * SearchPhotoNumberLocal 获取到 地址
 	 */
 	public final static int LOAD_ADDRESS_SUCCESS = 10010;
+	
+	/**
+	 * 天气加载异步回调成功
+	 */
+	public final static int WEATHER_LOAD_SUCCESS = 10011;
 
 	/**
 	 * 文件下载成功

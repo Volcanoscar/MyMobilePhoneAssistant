@@ -4,9 +4,13 @@ import java.lang.reflect.Method;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.ContentObserver;
+import android.net.Uri;
+import android.os.Handler;
 import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.SmsMessage;
@@ -88,10 +92,46 @@ public class BlackNumberMonitorService extends Service {
 				NumBlackListPojo blackNum = numBlackListDao.findOneByNum(incomingNumber);
 				if((blackNum != null) && (StaticDatas.BLACK_LIST_PHONE_MOD.equals(blackNum.getMod()) || StaticDatas.BLACK_LIST_ALL_MOD.equals(blackNum.getMod()))){
 					Log.i("TAG", "黑名单电话打入 挂断" + incomingNumber);
+					
+					Uri uri = Uri.parse("content://call_log/calls");
+					// 监听通话记录 并 删除黑名单 记录
+					getContentResolver().registerContentObserver(uri , true, new CallLogsObserver(incomingNumber,new Handler()));
+					
 					finishCall();
 				}
 			}
 		}
+	}
+	
+	private class CallLogsObserver extends ContentObserver{
+		
+		private String incomingNumber;
+
+		public CallLogsObserver(String incomingNumber,Handler handler) {
+			super(handler);
+			
+			this.incomingNumber = incomingNumber;
+		}
+
+		@Override
+		public void onChange(boolean selfChange) {
+			super.onChange(selfChange);
+			
+			deleteCallLogs(incomingNumber);
+			
+			// 解除注册
+			getContentResolver().unregisterContentObserver(this);
+		}
+	}
+	
+	/**
+	 * 删除 通话记录
+	 * @param incomingNumber
+	 */
+	private void deleteCallLogs(String incomingNumber){
+		ContentResolver cr = getContentResolver();
+		
+		cr.delete(Uri.parse("content://call_log/calls"), "number=?", new String[]{incomingNumber});
 	}
 	
 	/**
